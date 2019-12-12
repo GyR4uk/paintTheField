@@ -32,7 +32,7 @@ import { GameService } from "../shared/game.service";
   ]
 })
 export class GameFiled {
-  constructor(private GameService: GameService) {
+  constructor(public GameService: GameService) {
     GameService._initArray(10);
   }
 }
