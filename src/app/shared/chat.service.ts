@@ -15,7 +15,7 @@ export class ChatService {
 
   AUTHOR_NAME = "Roma";
 
-  _createMessage(text: string) {
+  _createMessage(text: string): void {
     const date = new Date();
     this.arrayOfMesages.push({
       author: this.AUTHOR_NAME,
@@ -25,7 +25,7 @@ export class ChatService {
     });
   }
 
-  setLoginName(name: string) {
+  setLoginName(name: string): void {
     this.AUTHOR_NAME = name;
   }
 }

@@ -48,11 +48,11 @@ export class ControlsComponent {
     private LoginService: LoginService
   ) {}
 
-  onLogOut() {
+  onLogOut(): void {
     this.LoginService._logOut();
   }
 
-  onRealodClick() {
+  onRealodClick(): void {
     this.GameService._initArray(10);
   }
 }

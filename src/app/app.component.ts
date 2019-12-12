@@ -11,7 +11,7 @@ import { ChatService } from "./shared/chat.service";
 export class AppComponent {
   constructor(private LoginService: LoginService) {}
 
-  onLogin(name: string) {
+  onLogin(name: string): void {
     this.LoginService._login(name);
   }
 }

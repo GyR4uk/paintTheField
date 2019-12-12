@@ -19,5 +19,10 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./message.component.css"]
 })
 export class MessageComponent {
-  @Input() data;
+  @Input() data: {
+    author: string;
+    content: string;
+    time: string;
+    mine: boolean;
+  };
 }

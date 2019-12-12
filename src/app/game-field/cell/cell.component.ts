@@ -10,7 +10,7 @@ import { Component, Input } from "@angular/core";
   ]
 })
 export class GameCell {
-  @Input("data") cell: any;
+  @Input("data") cell: { color: string; active: boolean };
   @Input("index") index: number;
 
   onClick(cell) {

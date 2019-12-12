@@ -40,9 +40,7 @@ import { GameService } from "src/app/shared/game.service";
 export class ColorPanel {
   constructor(private GameService: GameService) {}
 
-  onClick(color) {
+  onClick(color: string): void {
     this.GameService.changeColor(color);
   }
-
-  margin = "30px";
 }

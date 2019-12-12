@@ -10,14 +10,14 @@ export class GameService {
 
   GAME_DIFFICULTY: 6 | 8 | 10 = 10;
 
-  _createCell() {
+  _createCell(): { color: string; active: boolean } {
     return {
       color: this.ARRAY_OF_COLORS[Math.floor(Math.random() * 4)],
       active: false
     };
   }
 
-  _initArray(num) {
+  _initArray(num: number): void {
     this.arrayOfCells = [];
     for (let i = 0; i < num * num; i++) {
       this.arrayOfCells.push(this._createCell());
@@ -26,7 +26,7 @@ export class GameService {
     this._checkField(num);
   }
 
-  changeColor(color) {
+  changeColor(color: string): void {
     for (let cell of this.arrayOfCells) {
       if (cell.active) {
         cell.color = color;
@@ -35,9 +35,7 @@ export class GameService {
     this._checkField(10);
   }
 
-  _checkField(num) {
-    let arrayHelp = [];
-
+  _checkField(num: number): void {
     for (let i = 0; i < num * num; i++) {
       if (this.arrayOfCells[i].active) {
         if (this.arrayOfCells[i + 1]) {

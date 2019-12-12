@@ -2,14 +2,14 @@ import { ChatService } from "./chat.service";
 
 export class LoginService {
   constructor(private ChatService: ChatService) {}
-  isLogged: boolean = false;
+  isLogged = false;
 
-  _login(name: string) {
+  _login(name: string): void {
     this.ChatService.setLoginName(name);
     this.isLogged = true;
   }
 
-  _logOut() {
+  _logOut(): void {
     this.isLogged = false;
     this.ChatService.arrayOfMesages = [];
   }
