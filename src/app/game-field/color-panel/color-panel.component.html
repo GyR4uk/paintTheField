@@ -1,0 +1,5 @@
+<div class="color-panel">
+    <div *ngFor="let color of arrayOfColors" (click)="onClick(color)" [ngStyle]="{
+        background: color
+      }"></div>
+</div>

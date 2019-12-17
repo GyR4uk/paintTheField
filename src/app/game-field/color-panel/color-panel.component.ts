@@ -3,23 +3,14 @@ import { GameService } from "src/app/shared/game.service";
 
 @Component({
   selector: "game-color-panel",
-  template: `
-    <div class="color-panel">
-      <div
-        *ngFor="let color of GameService.ARRAY_OF_COLORS"
-        (click)="onClick(color)"
-        [ngStyle]="{
-          background: color
-        }"
-      ></div>
-    </div>
-  `,
+  templateUrl: "./color-panel.component.html",
   styles: [
     `
       .color-panel {
-        width: 300px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        display: flex;
+        width: 540px;
+        justify-content: center;
+        align-items: center;
         margin: 30px auto;
         grid-column: 2;
       }
@@ -33,12 +24,22 @@ import { GameService } from "src/app/shared/game.service";
         border: 2px #999;
         border-radius: 50%;
         cursor: pointer;
+        margin: 0 12px;
       }
     `
   ]
 })
 export class ColorPanel {
-  constructor(private GameService: GameService) {}
+  arrayOfColors = [];
+  constructor(private GameService: GameService) {
+    for (
+      let i = 0;
+      i < this.GameService._colors[this.GameService.GAME_DIFFICULTY];
+      i++
+    ) {
+      this.arrayOfColors.push(this.GameService.ARRAY_OF_COLORS[i]);
+    }
+  }
 
   onClick(color: string): void {
     this.GameService.changeColor(color);

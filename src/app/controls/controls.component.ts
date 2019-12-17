@@ -53,6 +53,6 @@ export class ControlsComponent {
   }
 
   onRealodClick(): void {
-    this.GameService._initArray(10);
+    this.GameService._initArray();
   }
 }
