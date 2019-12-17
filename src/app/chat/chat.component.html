@@ -1,0 +1,5 @@
+<div class="top">Color Paint</div>
+<div class="messages">
+    <chat-message *ngFor="let message of this.ChatService.arrayOfMesages" [data]="message"></chat-message>
+</div>
+<chat-bar class="bar"></chat-bar>

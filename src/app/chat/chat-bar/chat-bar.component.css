@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10%;
+    background: rgba(6, 123, 123, 0.12);
+}
+
+.send-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 40px;
+    border: 2px solid #027271;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+input {
+    border: 2px solid #027271;
+    font-size: 19px;
+    padding: 8px;
+    outline: none;
+    border-radius: 10px;
+    width: 80%;
+}

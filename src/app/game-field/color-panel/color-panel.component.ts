@@ -4,30 +4,7 @@ import { GameService } from "src/app/shared/game.service";
 @Component({
   selector: "game-color-panel",
   templateUrl: "./color-panel.component.html",
-  styles: [
-    `
-      .color-panel {
-        display: flex;
-        width: 540px;
-        justify-content: center;
-        align-items: center;
-        margin: 30px auto;
-        grid-column: 2;
-      }
-    `,
-    `
-      .color-panel div {
-        width: 50px;
-        height: 50px;
-        justify-self: center;
-        box-sizing: border-box;
-        border: 2px #999;
-        border-radius: 50%;
-        cursor: pointer;
-        margin: 0 12px;
-      }
-    `
-  ]
+  styleUrls: ["./color-panel.component.css"]
 })
 export class ColorPanel {
   arrayOfColors = [];

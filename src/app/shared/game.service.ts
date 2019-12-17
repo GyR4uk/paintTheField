@@ -10,7 +10,7 @@ export class GameService {
     "blue"
   ];
 
-  GAME_DIFFICULTY: 10 | 13 | 16 = 10;
+  GAME_DIFFICULTY: 10 | 13 | 16 = 16;
 
   _colors = {
     10: 4,

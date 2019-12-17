@@ -4,43 +4,8 @@ import { LoginService } from "../shared/login.service";
 
 @Component({
   selector: "app-controls",
-  template: `
-    <div class="contr">
-      <img src="assets/house.svg" class="btn" (click)="onLogOut()" />
-      <img
-        src="assets/refresh.svg"
-        class="btn reload"
-        (click)="onRealodClick()"
-      />
-    </div>
-  `,
-  styles: [
-    `
-      .contr {
-        width: 5vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        height: 100%;
-      }
-    `,
-    `
-      .btn {
-        margin-top: 10px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-      }
-    `,
-    `
-      .reload {
-        width: 35px;
-        height: 35px;
-      }
-    `
-  ]
+  templateUrl: "./controls.component.html",
+  styleUrls: ["./controls.component.css"]
 })
 export class ControlsComponent {
   constructor(

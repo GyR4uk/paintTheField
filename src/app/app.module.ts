@@ -12,6 +12,8 @@ import { GameService } from "./shared/game.service";
 import { ChatMessageBar } from "./chat/chat-bar/chat-bar.component";
 import { MessageComponent } from "./chat/message/message.component";
 import { LoginScreenComponent } from "./login-screen/login-screen.component";
+import { ScoresComponent } from './game-field/scores/scores.component';
+import { StarsComponent } from './game-field/stars/stars.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { LoginScreenComponent } from "./login-screen/login-screen.component";
     ControlsComponent,
     ChatMessageBar,
     MessageComponent,
-    LoginScreenComponent
+    LoginScreenComponent,
+    ScoresComponent,
+    StarsComponent
   ],
   imports: [BrowserModule, FormsModule],
   providers: [GameService],
