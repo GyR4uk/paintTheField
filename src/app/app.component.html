@@ -1,6 +1,11 @@
 <app-login-screen *ngIf="!this.LoginService.isLogged"></app-login-screen>
 <div *ngIf="this.LoginService.isLogged" class="container">
-  <app-controls></app-controls>
-  <app-game-filed></app-game-filed>
-  <app-chat class="chat"></app-chat>
+    <div>
+        <div class="topBar">
+            <app-controls></app-controls>
+            <app-leaderboard></app-leaderboard>
+        </div>
+        <app-game-filed></app-game-filed>
+    </div>
+    <app-chat class="chat"></app-chat>
 </div>

@@ -14,6 +14,7 @@ import { MessageComponent } from "./chat/message/message.component";
 import { LoginScreenComponent } from "./login-screen/login-screen.component";
 import { ScoresComponent } from './game-field/scores/scores.component';
 import { StarsComponent } from './game-field/stars/stars.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { StarsComponent } from './game-field/stars/stars.component';
     MessageComponent,
     LoginScreenComponent,
     ScoresComponent,
-    StarsComponent
+    StarsComponent,
+    LeaderboardComponent
   ],
   imports: [BrowserModule, FormsModule],
   providers: [GameService],

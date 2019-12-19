@@ -1,0 +1,9 @@
+.leaderboard {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    height: 100%;
+    border: 1px solid;
+    box-sizing: border-box;
+}

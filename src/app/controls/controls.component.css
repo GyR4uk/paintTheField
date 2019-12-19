@@ -1,21 +1,16 @@
 .contr {
-    width: 5vw;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: start;
     align-items: center;
+    width: 10%;
     height: 100%;
+    padding: 0%;
 }
 
-.btn {
-    margin-top: 10px;
-    width: 40px;
-    height: 40px;
+.contr img {
+    width: 40%;
+    height: 40%;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.reload {
-    width: 35px;
-    height: 35px;
 }
