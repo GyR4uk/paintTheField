@@ -1,10 +1,9 @@
 .color-panel {
     display: flex;
-    width: 540px;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 30px auto;
-    grid-column: 2;
 }
 
 .color-panel div {

@@ -1,17 +1,24 @@
 .wrapper {
+    display: grid;
+    grid-template-rows: 1fr 8fr;
+    grid-gap: 1em;
     width: 100%;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 100%;
     align-items: center;
+}
+
+.game {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    width: 100%;
+    height: 100%;
 }
 
 .field {
     display: grid;
     grid-gap: 0.5%;
-    width: 100%;
-    height: 100%;
+    width: 60vw;
+    height: 60vw;
 }
 
 .medium {
@@ -24,13 +31,4 @@
 
 .hard {
     grid-template-columns: repeat(16, .1fr);
-}
-
-.game {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 70vh;
-    height: 70vh;
 }

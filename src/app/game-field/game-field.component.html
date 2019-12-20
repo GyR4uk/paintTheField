@@ -2,10 +2,9 @@
     <game-scores></game-scores>
 
     <div class="game">
-
+        <game-color-panel></game-color-panel>
         <div style="z-index: 0;" [ngClass]="{ field : true, easy : this.GameService.GAME_DIFFICULTY === 10, medium: this.GameService.GAME_DIFFICULTY === 13, hard: this.GameService.GAME_DIFFICULTY === 16 }">
             <game-cell *ngFor=" let x of GameService.arrayOfCells; let i=index" [data]="x" [index]="i"></game-cell>
         </div>
-        <game-color-panel></game-color-panel>
     </div>
 </div>
