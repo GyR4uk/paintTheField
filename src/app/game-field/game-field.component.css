@@ -10,8 +10,8 @@
 .field {
     display: grid;
     grid-gap: 0.5%;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .medium {
@@ -27,15 +27,10 @@
 }
 
 .game {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-@media screen and (max-width: 1070px) {
-    .field {
-        width: 450px;
-        height: 450px;
-    }
+    width: 70vh;
+    height: 70vh;
 }
