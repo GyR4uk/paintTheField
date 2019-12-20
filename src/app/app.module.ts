@@ -15,6 +15,7 @@ import { LoginScreenComponent } from "./login-screen/login-screen.component";
 import { ScoresComponent } from "./game-field/scores/scores.component";
 import { StarsComponent } from "./game-field/stars/stars.component";
 import { GameDifficultyComoponent } from "./game-field/game-difficulty/game-difficulty.component";
+import { LeaderTableComponent } from "./controls/control-leader-table/control-leader-table.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { GameDifficultyComoponent } from "./game-field/game-difficulty/game-diff
     LoginScreenComponent,
     ScoresComponent,
     StarsComponent,
-    GameDifficultyComoponent
+    GameDifficultyComoponent,
+    LeaderTableComponent
   ],
   imports: [BrowserModule, FormsModule],
   providers: [GameService],

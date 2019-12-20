@@ -1,0 +1,9 @@
+<img src="assets/medal.svg" (click)="onClick()" />
+<div *ngIf="show" class="leaderBoard">
+    <div class="head">Leader Board</div>
+    <div class="row" *ngFor="let leader of this.LeaderBoardService.leaders; let i = index;">
+        <img [src]="getPlace(i)" />
+        <p style="color: #027271">{{ leader.name }}</p>
+        <p style="color: #ffa500">{{leader.score}}</p>
+    </div>
+</div>
