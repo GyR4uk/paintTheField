@@ -1,5 +1,8 @@
-<div class="color-panel">
-    <div *ngFor="let color of arrayOfColors" (click)="onClick(color)" [ngStyle]="{
+<div class="color-panel" *ngIf="!this.GameService.isEnd">
+  <div *ngFor="let color of this.GameService.ACTIVE_ARRAY_OF_COLORS" (click)="onClick(color)" [ngStyle]="{
         background: color
       }"></div>
+</div>
+<div class="color-panel" *ngIf="this.GameService.isEnd">
+  <img src="assets/arrows.svg" class="end" (click)="onRestart()" />
 </div>

@@ -1,7 +1,10 @@
 <div class="wrapper">
-    <game-scores></game-scores>
+    <game-scores *ngIf="this.GameService.GAME_DIFFICULTY"></game-scores>
     <div class="game">
-        <div style="z-index: 0;"
+        <div class="field" *ngIf="!this.GameService.GAME_DIFFICULTY">
+            <game-diff></game-diff>
+        </div>
+        <div *ngIf="this.GameService.GAME_DIFFICULTY"
             [ngClass]="{ field : true, easy : this.GameService.GAME_DIFFICULTY === 10, medium: this.GameService.GAME_DIFFICULTY === 13, hard: this.GameService.GAME_DIFFICULTY === 16 }">
             <game-cell *ngFor=" let x of GameService.arrayOfCells; let i=index" [data]="x" [index]="i">
             </game-cell>

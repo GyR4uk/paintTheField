@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Lilita+One&display=swap');
+
 p {
-    border: 1px solid;
+    font-family: 'Lilita One', cursive;
+    font-size: 24px;
+    color: orange;
 }

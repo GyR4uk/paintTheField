@@ -7,7 +7,5 @@ import { GameService } from "../shared/game.service";
   styleUrls: ["./game-field.component.css"]
 })
 export class GameFiled {
-  constructor(public GameService: GameService) {
-    GameService._initArray();
-  }
+  constructor(public GameService: GameService) {}
 }

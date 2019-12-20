@@ -17,3 +17,14 @@
     cursor: pointer;
     margin: 0 12px;
 }
+
+.end {
+    width: 54px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+
+.end:hover {
+    transform: rotate(360deg);
+}

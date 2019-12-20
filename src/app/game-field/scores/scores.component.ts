@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { GameService } from "src/app/shared/game.service";
 
 @Component({
   selector: "game-scores",
@@ -6,7 +7,7 @@ import { Component } from "@angular/core";
   styleUrls: ["./scores.component.css"]
 })
 export class ScoresComponent {
-  constructor() {}
+  constructor(private GameService: GameService) {}
 
-  text = "Тут должен быть счет!";
+  text = this.GameService.isEnd.toString();
 }

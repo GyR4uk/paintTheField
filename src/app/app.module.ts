@@ -12,8 +12,9 @@ import { GameService } from "./shared/game.service";
 import { ChatMessageBar } from "./chat/chat-bar/chat-bar.component";
 import { MessageComponent } from "./chat/message/message.component";
 import { LoginScreenComponent } from "./login-screen/login-screen.component";
-import { ScoresComponent } from './game-field/scores/scores.component';
-import { StarsComponent } from './game-field/stars/stars.component';
+import { ScoresComponent } from "./game-field/scores/scores.component";
+import { StarsComponent } from "./game-field/stars/stars.component";
+import { GameDifficultyComoponent } from "./game-field/game-difficulty/game-difficulty.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { StarsComponent } from './game-field/stars/stars.component';
     MessageComponent,
     LoginScreenComponent,
     ScoresComponent,
-    StarsComponent
+    StarsComponent,
+    GameDifficultyComoponent
   ],
   imports: [BrowserModule, FormsModule],
   providers: [GameService],

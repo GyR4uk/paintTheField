@@ -1,20 +1,30 @@
-.field {
-    display: grid;
-    grid-gap: 2px;
-    width: 540px;
-    height: 540px;
-
+* {
+    box-sizing: border-box;
 }
 
+.field {
+    width: 540px;
+    height: 540px;
+}
+
+
+
+
 .medium {
+    display: grid;
+    grid-gap: 2px;
     grid-template-columns: .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr;
 }
 
 .easy {
+    display: grid;
+    grid-gap: 2px;
     grid-template-columns: .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr;
 }
 
 .hard {
+    display: grid;
+    grid-gap: 2px;
     grid-template-columns: .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr .1fr;
 }
 

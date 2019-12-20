@@ -18,6 +18,6 @@ export class ControlsComponent {
   }
 
   onRealodClick(): void {
-    this.GameService._initArray();
+    this.GameService.restartTheGame();
   }
 }
