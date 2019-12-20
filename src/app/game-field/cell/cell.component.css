@@ -23,3 +23,89 @@ div {
         border-color: olivedrab;
     }
 }
+
+.first {
+    background: midnightblue;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-delay: 0;
+}
+
+.easy {
+    animation-name: anmiFirstEasy;
+}
+
+.medium {
+    animation-name: anmiFirstMedium;
+}
+
+.hard {
+    animation-name: animFirstHard;
+}
+
+@keyframes anmiFirstEasy {
+    25% {
+        background: midnightblue;
+    }
+
+    50% {
+        background: purple;
+    }
+
+    75% {
+        background: crimson;
+    }
+
+    100% {
+        background: mediumpurple;
+    }
+}
+
+@keyframes anmiFirstMedium {
+    0% {
+        background: midnightblue;
+    }
+
+    25% {
+        background: purple;
+    }
+
+    50% {
+        background: crimson;
+    }
+
+    75% {
+        background: mediumpurple;
+    }
+
+    100% {
+        background: orange;
+    }
+}
+
+@keyframes animFirstHard {
+    16% {
+        background: midnightblue;
+    }
+
+    32% {
+        background: purple;
+    }
+
+    48% {
+        background: crimson;
+    }
+
+    64% {
+        background: mediumpurple;
+    }
+
+    80% {
+        background: orange;
+    }
+
+    100% {
+        background: blue;
+    }
+
+}

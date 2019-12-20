@@ -8,19 +8,34 @@ export class ChatService {
     {
       author: "Maximilian",
       content: "Hello world!",
-      time: `1:34`,
+      time: this.getCurrentTime(),
       mine: false
     }
   ];
 
-  AUTHOR_NAME = "Roma";
+  AUTHOR_NAME: string;
 
-  _createMessage(text: string): void {
+  private getCurrentTime(): string {
+    let date = new Date();
+
+    let minutes =
+      date.getMinutes().toString().length === 1
+        ? "0" + date.getMinutes().toString()
+        : date.getMinutes();
+    let hours =
+      date.getHours().toString().length === 1
+        ? "0" + date.getHours().toString()
+        : date.getHours();
+
+    return `${hours}:${minutes}`;
+  }
+
+  public _createMessage(text: string): void {
     const date = new Date();
     this.arrayOfMesages.push({
       author: this.AUTHOR_NAME,
       content: text,
-      time: `${date.getHours()}:${date.getMinutes()}`,
+      time: this.getCurrentTime(),
       mine: true
     });
   }

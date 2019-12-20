@@ -78,6 +78,7 @@ export class GameService {
       this.arrayOfCells.push(this._createCell());
     }
     this.arrayOfCells[0].active = true;
+    this.arrayOfCells[0].color = undefined;
     this._checkField();
     this._checkForTheEnd();
   }

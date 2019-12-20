@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { GameService } from "src/app/shared/game.service";
 
 @Component({
   selector: "game-cell",
@@ -6,6 +7,7 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./cell.component.css"]
 })
 export class GameCell {
+  constructor(private GameService: GameService) {}
   @Input("data") cell: { color: string; active: boolean };
   @Input("index") index: number;
 }
