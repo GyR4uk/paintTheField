@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Lakki+Reddy&display=swap");
-
 * {
     box-sizing: border-box;
 }
@@ -11,7 +10,7 @@
     align-items: center;
     height: 5%;
     background: rgba(6, 123, 123, 0.64);
-    font-size: 25px;
+    font-size: 2em;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
