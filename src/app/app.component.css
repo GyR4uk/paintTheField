@@ -1,17 +1,13 @@
 .chat {
-  width: 30vw;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  height: 100vh;
-  border-radius: 10px;
-}
-
-.sss {
-  color: #228b22;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    height: 100vh;
+    border-radius: 10px;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: .1fr .7fr .25fr;
-  height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+    height: 100vh;
 }

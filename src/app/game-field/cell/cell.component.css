@@ -18,7 +18,6 @@ div {
     from {
         border-color: orange;
     }
-
     to {
         border-color: olivedrab;
     }
@@ -47,15 +46,12 @@ div {
     25% {
         background: midnightblue;
     }
-
     50% {
         background: purple;
     }
-
     75% {
         background: crimson;
     }
-
     100% {
         background: mediumpurple;
     }
@@ -65,19 +61,15 @@ div {
     0% {
         background: midnightblue;
     }
-
     25% {
         background: purple;
     }
-
     50% {
         background: crimson;
     }
-
     75% {
         background: mediumpurple;
     }
-
     100% {
         background: orange;
     }
@@ -87,25 +79,19 @@ div {
     16% {
         background: midnightblue;
     }
-
     32% {
         background: purple;
     }
-
     48% {
         background: crimson;
     }
-
     64% {
         background: mediumpurple;
     }
-
     80% {
         background: orange;
     }
-
     100% {
         background: blue;
     }
-
 }
