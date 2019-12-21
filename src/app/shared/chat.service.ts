@@ -7,7 +7,7 @@ export class ChatService {
   }[] = [
     {
       author: "Maximilian",
-      content: "Hello world!",
+      content: "Hello Tenzor!",
       time: this.getCurrentTime(),
       mine: false
     }
