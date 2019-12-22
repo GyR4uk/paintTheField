@@ -6,6 +6,7 @@
 .top {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 5%;
     min-height: 35px;
@@ -15,9 +16,8 @@
 }
 
 .top h1 {
-    margin: 0;
     font-family: "Lakki Reddy", cursive;
-    font-size: 4vh;
+    font-size: 200%;
 }
 
 .bar {

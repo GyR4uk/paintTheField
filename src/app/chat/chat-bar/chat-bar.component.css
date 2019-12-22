@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 .wrapper {
@@ -15,17 +16,22 @@
     justify-content: center;
     align-items: center;
     width: 15%;
-    height: 40px;
+    height: 50%;
     border: 2px solid #027271;
     border-radius: 15px;
     cursor: pointer;
 }
 
 input {
+    width: 80%;
+    height: 40%;
     border: 2px solid #027271;
-    font-size: 0.5em;
+    font-size: 100%;
     padding: 8px;
     outline: none;
     border-radius: 10px;
-    width: 80%;
+}
+
+.send-message img {
+    height: 80%;
 }
