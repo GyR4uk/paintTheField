@@ -71,18 +71,19 @@
 .text {
     grid-row: 2;
     word-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .time {
     grid-row: 3;
     justify-self: right;
-    font-size: 13px;
+    font-size: 80%;
     color: #999;
 }
 
 .from-time {
     grid-row: 3;
     justify-self: left;
-    font-size: 13px;
+    font-size: 80%;
     color: #999;
 }
