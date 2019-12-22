@@ -7,5 +7,5 @@ import { ChatService } from "../shared/chat.service";
   styleUrls: ["./chat.component.css"]
 })
 export class ChatComponent {
-  constructor(private ChatService: ChatService) {}
+  constructor(public ChatService: ChatService) {}
 }

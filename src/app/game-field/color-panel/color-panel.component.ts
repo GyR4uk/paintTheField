@@ -7,7 +7,7 @@ import { GameService } from "src/app/shared/game.service";
   styleUrls: ["./color-panel.component.css"]
 })
 export class ColorPanel {
-  constructor(private GameService: GameService) {}
+  constructor(public GameService: GameService) {}
 
   onClick(color: string): void {
     this.GameService.changeColor(color);

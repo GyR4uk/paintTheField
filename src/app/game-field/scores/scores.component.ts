@@ -7,7 +7,7 @@ import { GameService } from "src/app/shared/game.service";
   styleUrls: ["./scores.component.css"]
 })
 export class ScoresComponent {
-  constructor(private GameService: GameService) {}
+  constructor(public GameService: GameService) {}
 
   text = this.GameService.isEnd.toString();
 }

@@ -9,7 +9,7 @@ import { ChatService } from "./shared/chat.service";
   providers: [LoginService, ChatService]
 })
 export class AppComponent {
-  constructor(private LoginService: LoginService) {}
+  constructor(public LoginService: LoginService) {}
 
   onLogin(name: string): void {
     this.LoginService._login(name);

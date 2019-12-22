@@ -1,6 +1,14 @@
 .scope {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    width: 100%;
+    margin-bottom: 20%;
+}
+
+.scope h1 {
     font-family: 'Lilita One', cursive;
-    font-size: 6ex;
+    font-size: 250%;
     color: orange;
-    margin-bottom: 25%;
 }

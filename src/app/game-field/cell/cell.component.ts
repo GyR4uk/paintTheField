@@ -7,7 +7,7 @@ import { GameService } from "src/app/shared/game.service";
   styleUrls: ["./cell.component.css"]
 })
 export class GameCell {
-  constructor(private GameService: GameService) {}
+  constructor(public GameService: GameService) {}
   @Input("data") cell: { color: string; active: boolean };
   @Input("index") index: number;
 }
