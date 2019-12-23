@@ -17,6 +17,11 @@ export class LoginScreenComponent {
 
   onLogin(name: string): void {
     // ТУТ ДЕЛАТЬ ПРОВЕРКИ (на вход поступает строка, которую польщтватель вводит в поле ввода)
-    this.LoginService._login(name);
+    if(name.length < 4 || name.length > 20)
+       alert('В логине должен быть от 4 до 20 символов!'); 
+    else if(parseInt(name.substr(0, 1)))
+      alert('Логин должен начинаться с буквы!');
+    else this.LoginService._login(name);
+   
   }
 }
