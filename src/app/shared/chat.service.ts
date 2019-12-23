@@ -50,7 +50,7 @@ export class ChatService {
   }
 
   inrevalMessage() {
-    setInterval(() => {
+    let timer = setInterval(() => {
       this.onGetMessages();
     }, 1000);
   }
