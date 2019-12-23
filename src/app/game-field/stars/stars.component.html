@@ -1,1 +1,9 @@
-<p>stars works!</p>
+<game-scores></game-scores>
+<ul class="stars">
+    <li *ngFor="let star of stars" [@endAnimation]='star.width <= 10 ? "end" : ""' class="star">
+        <div class="star-bg"  [style.width]="star.width +'%'">
+
+    
+        </div>
+    </li>
+</ul>

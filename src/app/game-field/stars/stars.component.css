@@ -1,0 +1,31 @@
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+.stars {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    padding: 10px 0;
+}
+.star {
+    display: block;
+    width: 21px;
+    height: 21px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    background: rgb(185, 185, 185);
+    position: relative;
+}
+.star-bg {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    height: 20px;
+    background: yellow;
+    transition: all ease 0.2s;
+
+}
