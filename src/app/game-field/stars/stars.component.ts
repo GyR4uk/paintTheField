@@ -1,12 +1,12 @@
-import { Component, Input,  OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import {
   trigger,
   state,
   style,
   animate,
-  transition,
+  transition
   // ...
-} from '@angular/animations';
+} from "@angular/animations";
 import { GameService } from "src/app/shared/game.service";
 
 @Component({
@@ -14,11 +14,15 @@ import { GameService } from "src/app/shared/game.service";
   templateUrl: "./stars.component.html",
   styleUrls: ["./stars.component.css"],
   animations: [
-    trigger('endAnimation', [
-      state('end', style({
-        transform: 'rotate(360deg)'
-      })),
-      transition('* => end', animate('750ms'))])
+    trigger("endAnimation", [
+      state(
+        "end",
+        style({
+          transform: "rotate(360deg)"
+        })
+      ),
+      transition("* => end", animate("750ms"))
+    ])
   ]
 })
 export class StarsComponent implements OnInit {
@@ -32,7 +36,7 @@ export class StarsComponent implements OnInit {
   ngOnInit(): void {
     switch (this.GameService.GAME_DIFFICULTY) {
       case 10: {
-        this.maxSeconds = 180;
+        this.maxSeconds = 60;
         break;
       }
       case 13: {
@@ -40,26 +44,39 @@ export class StarsComponent implements OnInit {
         break;
       }
       case 16: {
-        this.maxSeconds = 60;
+        this.maxSeconds = 180;
         break;
       }
     }
     this.seconds = this.maxSeconds;
-    this.stars = Array(this.count).fill(0).map((x,i)=>({
-      width: 100
-    }));
+    this.stars = Array(this.count)
+      .fill(0)
+      .map((x, i) => ({
+        width: 100
+      }));
     const timer = setInterval(() => {
       this.seconds--;
-      
+
       let partSize = this.maxSeconds / this.count;
       const currentStarIndex = Math.ceil(this.seconds / partSize) - 1;
-      this.stars[currentStarIndex].width = this.seconds % partSize ? ((this.seconds % partSize) / partSize) * 100 : 100;
-      
+      this.stars[currentStarIndex].width =
+        this.seconds % partSize
+          ? ((this.seconds % partSize) / partSize) * 100
+          : 100;
+
       this.GameService.scoreFactor = this.seconds / partSize;
 
       if (this.seconds === 0) {
         clearInterval(timer);
       }
-    }, 1000)
+      if (this.GameService.bonus > 1) {
+        this.GameService.bonus -= 0.1;
+        console.log(this.GameService.bonus);
+      }
+
+      if (this.GameService.isEnd === true) {
+        clearInterval(timer);
+      }
+    }, 1000);
   }
 }
