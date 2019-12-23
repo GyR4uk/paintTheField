@@ -68,7 +68,7 @@ export class GameService {
     });
     this.http
       .patch(
-        `http://localhost:8080/api/records?id=${this.id}`,
+        `http://localhost:8080/api/records/${this.id}`,
         JSON.stringify({ id: this.id, score: this.scores }),
         { headers }
       )
@@ -112,12 +112,15 @@ export class GameService {
   }
 
   public changeColor(color: string): void {
+    let chek;
     for (let cell of this.arrayOfCells) {
       if (cell.active) {
         cell.color = color;
       }
     }
-    this._checkField();
+    do {
+      chek = this._checkField();
+    } while (chek === 0);
     this._checkForTheEnd();
   }
 
@@ -140,7 +143,8 @@ export class GameService {
     this.currentActive = count;
   }
 
-  private _checkField(): void {
+  private _checkField(): any {
+    let count = 0;
     for (let i = 0; i < this.GAME_DIFFICULTY * this.GAME_DIFFICULTY; i++) {
       if (this.arrayOfCells[i].active) {
         if (this.arrayOfCells[i + 1]) {
@@ -150,6 +154,7 @@ export class GameService {
               Math.floor((i + 1) / this.GAME_DIFFICULTY)
           ) {
             this.arrayOfCells[i + 1].active = true;
+            count++;
           }
         }
 
@@ -160,6 +165,7 @@ export class GameService {
               Math.floor((i - 1) / this.GAME_DIFFICULTY)
           ) {
             this.arrayOfCells[i - 1].active = true;
+            count++;
           }
         }
 
@@ -170,6 +176,7 @@ export class GameService {
               this.arrayOfCells[i].color
             ) {
               this.arrayOfCells[i + this.GAME_DIFFICULTY].active = true;
+              count++;
             }
           }
         }
@@ -180,10 +187,12 @@ export class GameService {
             this.arrayOfCells[i].color
           ) {
             this.arrayOfCells[i - this.GAME_DIFFICULTY].active = true;
+            count++;
           }
         }
       }
     }
     this._checkHowManyActive();
+    return count;
   }
 }

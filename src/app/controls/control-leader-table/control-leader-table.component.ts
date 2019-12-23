@@ -16,6 +16,9 @@ export class LeaderTableComponent {
       .get("http://localhost:8080/api/records")
       .subscribe(arrayOfUsers => {
         this.arrayOfRecords = arrayOfUsers;
+        this.arrayOfRecords = this.arrayOfRecords.filter(
+          el => el.game === "paintTheField"
+        );
         this.show = !this.show;
       });
   }
