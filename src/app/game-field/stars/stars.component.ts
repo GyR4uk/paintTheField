@@ -1,4 +1,4 @@
-import { Component, Input,  OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import {
   trigger,
   state,
@@ -27,7 +27,7 @@ export class StarsComponent implements OnInit {
   seconds = 30;
   stars: Array<any>;
   currentStar: number;
-  constructor(public GameService: GameService) {}
+  constructor(public GameService: GameService) { }
 
   ngOnInit(): void {
     switch (this.GameService.GAME_DIFFICULTY) {
@@ -45,20 +45,20 @@ export class StarsComponent implements OnInit {
       }
     }
     this.seconds = this.maxSeconds;
-    this.stars = Array(this.count).fill(0).map((x,i)=>({
+    this.stars = Array(this.count).fill(0).map((x, i) => ({
       width: 100
     }));
     const timer = setInterval(() => {
-      this.seconds--;
-      
-      let partSize = this.maxSeconds / this.count;
-      const currentStarIndex = Math.ceil(this.seconds / partSize) - 1;
-      this.stars[currentStarIndex].width = this.seconds % partSize ? ((this.seconds % partSize) / partSize) * 100 : 100;
-      
-      this.GameService.scoreFactor = this.seconds / partSize;
 
+      this.seconds--;
       if (this.seconds === 0) {
         clearInterval(timer);
+      }
+      else {
+        let partSize = this.maxSeconds / this.count;
+        const currentStarIndex = Math.ceil(this.seconds / partSize) - 1;
+        this.stars[currentStarIndex].width = this.seconds % partSize ? ((this.seconds % partSize) / partSize) * 100 : 100;
+        this.GameService.scoreFactor = this.seconds / partSize;
       }
     }, 1000)
   }
