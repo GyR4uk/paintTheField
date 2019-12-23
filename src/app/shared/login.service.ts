@@ -15,6 +15,7 @@ export class LoginService {
       })
       .subscribe(response => {
         this.isLogged = true;
+        this.ChatService.inrevalMessage();
       });
   }
 

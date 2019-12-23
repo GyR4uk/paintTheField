@@ -1,6 +1,10 @@
 <div class="wrapper">
+    <div class="send-message" (click)="onFilter()">
+        <img src="assets/funnel.svg" />
+    </div>
     <input type="text" [(ngModel)]="text" (keydown)="onInput($event)" />
-    <div class="send-message" (click)="sendMessage(this.text)">
+    <div class="send-message border" (click)="sendMessage(this.text)">
         <img src="assets/send.svg" />
     </div>
+
 </div>

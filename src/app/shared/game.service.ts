@@ -22,7 +22,7 @@ export class GameService {
   private currentActive: number = 0;
 
   public isEnd: boolean = false;
-  public scoreFactor: number = 3;
+  public scoreFactor: number;
 
   public scores: number = 0;
 
@@ -65,6 +65,10 @@ export class GameService {
         return;
       }
     }
+    if (this.scoreFactor < 1) {
+      this.scoreFactor = 1;
+    }
+    this.scores = Math.ceil(this.scores * this.scoreFactor);
     let headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -73,7 +77,7 @@ export class GameService {
         `http://localhost:8080/api/records?id=${this.id}`,
         JSON.stringify({
           id: this.id,
-          score: Math.ceil(this.scores * this.scoreFactor)
+          score: this.scores
         }),
         { headers }
       )

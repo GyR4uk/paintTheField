@@ -9,7 +9,7 @@ import { ChatService } from "src/app/shared/chat.service";
 export class ChatMessageBar {
   constructor(private ChatService: ChatService) {}
 
-  text = "";
+  text: string = "";
   sendMessage(text: string): void {
     if (text.length !== 0) {
       this.ChatService._createMessage(text);
@@ -21,5 +21,9 @@ export class ChatMessageBar {
     if (event.code === "Enter") {
       this.sendMessage(event.target.value);
     }
+  }
+
+  onFilter() {
+    this.ChatService.filtered = !this.ChatService.filtered;
   }
 }

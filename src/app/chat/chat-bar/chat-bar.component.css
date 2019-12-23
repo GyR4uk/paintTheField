@@ -17,9 +17,12 @@
     align-items: center;
     width: 15%;
     height: 50%;
-    border: 2px solid #027271;
     border-radius: 15px;
     cursor: pointer;
+}
+
+.border {
+    border: 2px solid #027271;
 }
 
 input {

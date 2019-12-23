@@ -4,6 +4,7 @@ export class ChatService {
   constructor(private http: HttpClient) {}
   mess;
   arrayOfMesages = [];
+  filtered: boolean = false;
 
   AUTHOR_NAME: string;
 
@@ -31,18 +32,27 @@ export class ChatService {
         headers
       })
       .subscribe(data => {
-        this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-          this.mess = array;
-          console.log(this.mess);
-        });
+        this.onGetMessages();
       });
-    // const date = new Date();
-    // this.arrayOfMesages.push({
-    //   author: this.AUTHOR_NAME,
-    //   content: text,
-    //   time: this.getCurrentTime(),
-    //   mine: true
-    // });
+  }
+
+  onGetMessages() {
+    if (!this.filtered) {
+      this.http.get("http://localhost:8080/api/messages").subscribe(array => {
+        this.mess = array;
+        this.mess = this.mess.filter(el => el.game === "paintTheField");
+      });
+    } else {
+      this.http.get("http://localhost:8080/api/messages").subscribe(array => {
+        this.mess = array;
+      });
+    }
+  }
+
+  inrevalMessage() {
+    setInterval(() => {
+      this.onGetMessages();
+    }, 1000);
   }
 
   setLoginName(name: string): void {
