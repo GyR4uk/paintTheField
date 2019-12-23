@@ -1,12 +1,12 @@
-<div [ngClass]="{ wrap: data.mine, 'from-wrap': !data.mine }">
-    <div [ngClass]="{ message: data.mine, 'from-message': !data.mine }">
-        <div [ngClass]="{ name: data.mine, 'from-name': !data.mine }">
-            {{ data.author }}
+<div [ngClass]="{ wrap: data.isMine, 'from-wrap': !data.isMine }">
+    <div [ngClass]="{ message: data.isMine, 'from-message': !data.isMine }">
+        <div [ngClass]="{ name: data.isMine, 'from-name': !data.isMine }">
+            {{ data.user }}
         </div>
-        <div class="text">{{ data.content }}</div>
-        <div [ngClass]="{ time: data.mine, 'from-time': !data.mine }">
-            {{ data.time }}
+        <div class="text">{{ data.text }}</div>
+        <div [ngClass]="{ time: data.isMine, 'from-time': !data.isMine }">
+            {{ this.ChatService.getCurrentTime(data.time) }}
         </div>
     </div>
-    <div [ngClass]="{ circle: data.mine, 'from-circle': !data.mine }"></div>
+    <div [ngClass]="{ circle: data.isMine, 'from-circle': !data.isMine }"></div>
 </div>

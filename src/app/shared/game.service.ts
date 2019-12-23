@@ -1,4 +1,7 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+
 export class GameService {
+  constructor(private http: HttpClient) {}
   public arrayOfCells: { color: string; active: boolean }[] = [];
 
   private ARRAY_OF_COLORS: string[] = [
@@ -22,11 +25,24 @@ export class GameService {
 
   public scores: number = 0;
 
+  private id;
   public ACTIVE_ARRAY_OF_COLORS: string[] = [];
 
   public GAME_DIFFICULTY: 10 | 13 | 16;
 
   public startTheGame(number: 10 | 13 | 16): void {
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    this.http
+      .post(
+        "http://localhost:8080/api/records",
+        JSON.stringify({ game: "paintTheField" }),
+        { headers }
+      )
+      .subscribe(response => {
+        this.id = response;
+      });
     this.GAME_DIFFICULTY = number;
     this._editActiveColorsArray();
     this._initArray();
@@ -47,10 +63,22 @@ export class GameService {
         return;
       }
     }
-    this.isEnd = true;
-    for (let cell of this.arrayOfCells) {
-      cell.color = "gray";
-    }
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    this.http
+      .patch(
+        `http://localhost:8080/api/records?id=${this.id}`,
+        JSON.stringify({ id: this.id, score: this.scores }),
+        { headers }
+      )
+      .subscribe(_ => {
+        this.isEnd = true;
+        for (let cell of this.arrayOfCells) {
+          cell.color = "gray";
+        }
+      });
+
     return;
   }
 

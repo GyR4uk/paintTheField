@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { ChatService } from "src/app/shared/chat.service";
 
 @Component({
   selector: "chat-message",
@@ -6,10 +7,12 @@ import { Component, Input } from "@angular/core";
   styleUrls: ["./message.component.css"]
 })
 export class MessageComponent {
+  constructor(private ChatService: ChatService) {}
   @Input() data: {
-    author: string;
-    content: string;
+    user: string;
+    game: string;
+    text: string;
     time: string;
-    mine: boolean;
+    isMine: boolean;
   };
 }

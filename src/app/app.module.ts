@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { GameFiled } from "./game-field/game-filed.component";
@@ -33,7 +34,7 @@ import { LeaderTableComponent } from "./controls/control-leader-table/control-le
     GameDifficultyComoponent,
     LeaderTableComponent
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule],
   providers: [GameService],
   bootstrap: [AppComponent]
 })

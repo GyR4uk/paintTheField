@@ -1,16 +1,26 @@
 import { ChatService } from "./chat.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 export class LoginService {
-  constructor(private ChatService: ChatService) {}
+  constructor(private ChatService: ChatService, private http: HttpClient) {}
   isLogged: boolean = false;
 
   public _login(name: string): void {
-    this.ChatService.setLoginName(name);
-    this.isLogged = true;
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    this.http
+      .post("http://localhost:8080/api/users", JSON.stringify({ name }), {
+        headers
+      })
+      .subscribe(response => {
+        this.isLogged = true;
+      });
   }
 
   public _logOut(): void {
-    this.isLogged = false;
-    this.ChatService.arrayOfMesages = [];
+    this.http.delete("http://localhost:8080/api/users").subscribe(_ => {
+      this.isLogged = false;
+    });
   }
 }

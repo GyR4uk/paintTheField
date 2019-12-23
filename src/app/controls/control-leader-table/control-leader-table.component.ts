@@ -1,18 +1,23 @@
 import { Component } from "@angular/core";
-import { LeaderBoardService } from "src/app/shared/leader-board.service";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "control-leaders-table",
   templateUrl: "./control-leader-table.component.html",
-  styleUrls: ["./control-leader-table.component.css"],
-  providers: [LeaderBoardService]
+  styleUrls: ["./control-leader-table.component.css"]
 })
 export class LeaderTableComponent {
-  constructor(private LeaderBoardService: LeaderBoardService) {}
+  arrayOfRecords;
+  constructor(private http: HttpClient) {}
 
   show: boolean = false;
   onClick(): void {
-    this.show = !this.show;
+    this.http
+      .get("http://localhost:8080/api/records")
+      .subscribe(arrayOfUsers => {
+        this.arrayOfRecords = arrayOfUsers;
+        this.show = !this.show;
+      });
   }
 
   place: string[] = [
