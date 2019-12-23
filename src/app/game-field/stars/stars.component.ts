@@ -69,14 +69,6 @@ export class StarsComponent implements OnInit {
       if (this.seconds === 0) {
         clearInterval(timer);
       }
-      if (this.GameService.bonus > 1) {
-        this.GameService.bonus -= 0.1;
-        console.log(this.GameService.bonus);
-      }
-
-      if (this.GameService.isEnd === true) {
-        clearInterval(timer);
-      }
     }, 1000);
   }
 }
