@@ -22,6 +22,7 @@ export class GameService {
   private currentActive: number = 0;
 
   public isEnd: boolean = false;
+  public scoreFactor: number = 3;
 
   public scores: number = 0;
 
