@@ -11,8 +11,8 @@
 }
 .star {
     display: block;
-    width: 21px;
-    height: 21px;
+    width: 41px;
+    height: 41px;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     background: rgb(185, 185, 185);
     position: relative;
@@ -24,7 +24,7 @@
     bottom: 0;
     top: 0;
     margin: auto;
-    height: 20px;
+    height: 40px;
     background: yellow;
     transition: all ease 0.2s;
 
