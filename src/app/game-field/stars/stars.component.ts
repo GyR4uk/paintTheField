@@ -1,10 +1,78 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+  // ...
+} from "@angular/animations";
+import { GameService } from "src/app/shared/game.service";
 
 @Component({
   selector: "app-stars",
   templateUrl: "./stars.component.html",
-  styleUrls: ["./stars.component.css"]
+  styleUrls: ["./stars.component.css"],
+  animations: [
+    trigger("endAnimation", [
+      state(
+        "end",
+        style({
+          transform: "rotate(360deg)"
+        })
+      ),
+      transition("* => end", animate("750ms"))
+    ])
+  ]
 })
-export class StarsComponent {
-  constructor() {}
+export class StarsComponent implements OnInit {
+  @Input() count: number;
+  maxSeconds = 30;
+  seconds = 30;
+  stars: Array<any>;
+  currentStar: number;
+  constructor(public GameService: GameService) {}
+
+  ngOnInit(): void {
+    switch (this.GameService.GAME_DIFFICULTY) {
+      case 10: {
+        this.maxSeconds = 40;
+        break;
+      }
+      case 13: {
+        this.maxSeconds = 80;
+        break;
+      }
+      case 16: {
+        this.maxSeconds = 130;
+        break;
+      }
+    }
+    this.seconds = this.maxSeconds;
+    this.stars = Array(this.count)
+      .fill(0)
+      .map((x, i) => ({
+        width: 100
+      }));
+    const timer = setInterval(() => {
+      this.seconds--;
+
+      let partSize = this.maxSeconds / this.count;
+      const currentStarIndex = Math.ceil(this.seconds / partSize) - 1;
+      this.stars[currentStarIndex].width =
+        this.seconds % partSize
+          ? ((this.seconds % partSize) / partSize) * 100
+          : 100;
+
+      this.GameService.scoreFactor = this.seconds / partSize;
+
+      if (this.seconds === 0) {
+        clearInterval(timer);
+      }
+
+      if (this.GameService.isEnd) {
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
 }
