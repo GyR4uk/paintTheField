@@ -80,7 +80,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "<div [ngClass]=\"{ wrap: data.isMine, 'from-wrap': !data.isMine }\">\n    <div [ngClass]=\"{ message: data.isMine, 'from-message': !data.isMine }\">\n        <div [ngClass]=\"{ name: data.isMine, 'from-name': !data.isMine }\">\n            {{ data.user }} | ( {{ (data.game === '' ? 'AFK' : data.game) }} )\n        </div>\n        <div class=\"text\">{{ data.text }}</div>\n        <div [ngClass]=\"{ time: data.isMine, 'from-time': !data.isMine }\">\n            {{ this.ChatService.getCurrentTime(data.time) }}\n        </div>\n    </div>\n    <div [ngClass]=\"{ circle: data.isMine, 'from-circle': !data.isMine }\"></div>\n</div>"
+                module.exports = "<div [ngClass]=\"{ wrap: data.isMine, 'from-wrap': !data.isMine }\">\n    <div [ngClass]=\"{ message: data.isMine, 'from-message': !data.isMine }\">\n        <div [ngClass]=\"{ name: data.isMine, 'from-name': !data.isMine }\">\n            {{ data.user }} | ( {{ (data.game === '' ? \"resting\" : data.game) }} )\n        </div>\n        <div class=\"text\">{{ data.text }}</div>\n        <div [ngClass]=\"{ time: data.isMine, 'from-time': !data.isMine }\">\n            {{ this.ChatService.getCurrentTime(data.time) }}\n        </div>\n    </div>\n    <div [ngClass]=\"{ circle: data.isMine, 'from-circle': !data.isMine }\"></div>\n</div>"
 
                 /***/
             }),
@@ -164,7 +164,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "<div class=\"wrapper\">\n    <game-scores *ngIf=\"this.GameService.GAME_DIFFICULTY\"></game-scores>\n    <div class=\"game\">\n        <div class=\"field\" *ngIf=\"!this.GameService.GAME_DIFFICULTY\">\n            <game-diff></game-diff>\n        </div>\n        <div *ngIf=\"this.GameService.GAME_DIFFICULTY\"\n            [ngClass]=\"{ field : true, easy : this.GameService.GAME_DIFFICULTY === 10, medium: this.GameService.GAME_DIFFICULTY === 13, hard: this.GameService.GAME_DIFFICULTY === 16 }\">\n            <game-cell *ngFor=\" let x of GameService.arrayOfCells; let i=index\" [data]=\"x\" [index]=\"i\">\n            </game-cell>\n        </div>\n        <game-color-panel></game-color-panel>\n    </div>\n</div>"
+                module.exports = "<div class=\"wrapper\">\n    <app-stars [count]=\"3\" *ngIf=\"this.GameService.GAME_DIFFICULTY\"></app-stars>\n    <div class=\"game\">\n        <div class=\"field\" *ngIf=\"!this.GameService.GAME_DIFFICULTY\">\n            <game-diff></game-diff>\n        </div>\n        <div *ngIf=\"this.GameService.GAME_DIFFICULTY\"\n            [ngClass]=\"{ field : true, easy : this.GameService.GAME_DIFFICULTY === 10, medium: this.GameService.GAME_DIFFICULTY === 13, hard: this.GameService.GAME_DIFFICULTY === 16 }\">\n            <game-cell *ngFor=\" let x of GameService.arrayOfCells; let i=index\" [data]=\"x\" [index]=\"i\">\n            </game-cell>\n        </div>\n        <game-color-panel></game-color-panel>\n    </div>\n</div>"
 
                 /***/
             }),
@@ -178,7 +178,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "<div class=\"scope\">\n    <h1>{{this.GameService.scores}}</h1>\n</div>"
+                module.exports = "<div class=\"scope\">\n    <h1>{{this.GameService.scores}}</h1>\n</div>\n"
 
                 /***/
             }),
@@ -192,7 +192,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "<p>stars works!</p>\n"
+                module.exports = "<div style=\"display: flex; justify-content: center; align-items: center; flex-direction: column;\">\n    <ul class=\"stars\">\n        <li *ngFor=\"let star of stars\" [@endAnimation]='star.width <= 10 ? \"end\" : \"\"' class=\"star\">\n            <div class=\"star-bg\" [style.width]=\"star.width +'%'\">\n\n\n            </div>\n        </li>\n    </ul>\n    <game-scores></game-scores>\n</div>"
 
                 /***/
             }),
@@ -303,33 +303,36 @@
                 /* harmony import */
                 var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__( /*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
                 /* harmony import */
-                var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__( /*! ./app.component */ "./src/app/app.component.ts");
+                var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__( /*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
                 /* harmony import */
-                var _game_field_game_filed_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__( /*! ./game-field/game-filed.component */ "./src/app/game-field/game-filed.component.ts");
+                var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__( /*! ./app.component */ "./src/app/app.component.ts");
                 /* harmony import */
-                var _game_field_cell_cell_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__( /*! ./game-field/cell/cell.component */ "./src/app/game-field/cell/cell.component.ts");
+                var _game_field_game_filed_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__( /*! ./game-field/game-filed.component */ "./src/app/game-field/game-filed.component.ts");
                 /* harmony import */
-                var _game_field_color_panel_color_panel_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__( /*! ./game-field/color-panel/color-panel.component */ "./src/app/game-field/color-panel/color-panel.component.ts");
+                var _game_field_cell_cell_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__( /*! ./game-field/cell/cell.component */ "./src/app/game-field/cell/cell.component.ts");
                 /* harmony import */
-                var _chat_chat_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__( /*! ./chat/chat.component */ "./src/app/chat/chat.component.ts");
+                var _game_field_color_panel_color_panel_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__( /*! ./game-field/color-panel/color-panel.component */ "./src/app/game-field/color-panel/color-panel.component.ts");
                 /* harmony import */
-                var _controls_controls_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__( /*! ./controls/controls.component */ "./src/app/controls/controls.component.ts");
+                var _chat_chat_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__( /*! ./chat/chat.component */ "./src/app/chat/chat.component.ts");
                 /* harmony import */
-                var _shared_game_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__( /*! ./shared/game.service */ "./src/app/shared/game.service.ts");
+                var _controls_controls_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__( /*! ./controls/controls.component */ "./src/app/controls/controls.component.ts");
                 /* harmony import */
-                var _chat_chat_bar_chat_bar_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__( /*! ./chat/chat-bar/chat-bar.component */ "./src/app/chat/chat-bar/chat-bar.component.ts");
+                var _shared_game_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__( /*! ./shared/game.service */ "./src/app/shared/game.service.ts");
                 /* harmony import */
-                var _chat_message_message_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__( /*! ./chat/message/message.component */ "./src/app/chat/message/message.component.ts");
+                var _chat_chat_bar_chat_bar_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__( /*! ./chat/chat-bar/chat-bar.component */ "./src/app/chat/chat-bar/chat-bar.component.ts");
                 /* harmony import */
-                var _login_screen_login_screen_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__( /*! ./login-screen/login-screen.component */ "./src/app/login-screen/login-screen.component.ts");
+                var _chat_message_message_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__( /*! ./chat/message/message.component */ "./src/app/chat/message/message.component.ts");
                 /* harmony import */
-                var _game_field_scores_scores_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__( /*! ./game-field/scores/scores.component */ "./src/app/game-field/scores/scores.component.ts");
+                var _login_screen_login_screen_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__( /*! ./login-screen/login-screen.component */ "./src/app/login-screen/login-screen.component.ts");
                 /* harmony import */
-                var _game_field_stars_stars_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__( /*! ./game-field/stars/stars.component */ "./src/app/game-field/stars/stars.component.ts");
+                var _game_field_scores_scores_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__( /*! ./game-field/scores/scores.component */ "./src/app/game-field/scores/scores.component.ts");
                 /* harmony import */
-                var _game_field_game_difficulty_game_difficulty_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__( /*! ./game-field/game-difficulty/game-difficulty.component */ "./src/app/game-field/game-difficulty/game-difficulty.component.ts");
+                var _game_field_stars_stars_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__( /*! ./game-field/stars/stars.component */ "./src/app/game-field/stars/stars.component.ts");
                 /* harmony import */
-                var _controls_control_leader_table_control_leader_table_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__( /*! ./controls/control-leader-table/control-leader-table.component */ "./src/app/controls/control-leader-table/control-leader-table.component.ts");
+                var _game_field_game_difficulty_game_difficulty_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__( /*! ./game-field/game-difficulty/game-difficulty.component */ "./src/app/game-field/game-difficulty/game-difficulty.component.ts");
+                /* harmony import */
+                var _controls_control_leader_table_control_leader_table_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__( /*! ./controls/control-leader-table/control-leader-table.component */ "./src/app/controls/control-leader-table/control-leader-table.component.ts");
+
 
 
 
@@ -353,23 +356,23 @@
                 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
                         declarations: [
-                            _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
-                            _game_field_game_filed_component__WEBPACK_IMPORTED_MODULE_6__["GameFiled"],
-                            _game_field_cell_cell_component__WEBPACK_IMPORTED_MODULE_7__["GameCell"],
-                            _game_field_color_panel_color_panel_component__WEBPACK_IMPORTED_MODULE_8__["ColorPanel"],
-                            _chat_chat_component__WEBPACK_IMPORTED_MODULE_9__["ChatComponent"],
-                            _controls_controls_component__WEBPACK_IMPORTED_MODULE_10__["ControlsComponent"],
-                            _chat_chat_bar_chat_bar_component__WEBPACK_IMPORTED_MODULE_12__["ChatMessageBar"],
-                            _chat_message_message_component__WEBPACK_IMPORTED_MODULE_13__["MessageComponent"],
-                            _login_screen_login_screen_component__WEBPACK_IMPORTED_MODULE_14__["LoginScreenComponent"],
-                            _game_field_scores_scores_component__WEBPACK_IMPORTED_MODULE_15__["ScoresComponent"],
-                            _game_field_stars_stars_component__WEBPACK_IMPORTED_MODULE_16__["StarsComponent"],
-                            _game_field_game_difficulty_game_difficulty_component__WEBPACK_IMPORTED_MODULE_17__["GameDifficultyComoponent"],
-                            _controls_control_leader_table_control_leader_table_component__WEBPACK_IMPORTED_MODULE_18__["LeaderTableComponent"]
+                            _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
+                            _game_field_game_filed_component__WEBPACK_IMPORTED_MODULE_7__["GameFiled"],
+                            _game_field_cell_cell_component__WEBPACK_IMPORTED_MODULE_8__["GameCell"],
+                            _game_field_color_panel_color_panel_component__WEBPACK_IMPORTED_MODULE_9__["ColorPanel"],
+                            _chat_chat_component__WEBPACK_IMPORTED_MODULE_10__["ChatComponent"],
+                            _controls_controls_component__WEBPACK_IMPORTED_MODULE_11__["ControlsComponent"],
+                            _chat_chat_bar_chat_bar_component__WEBPACK_IMPORTED_MODULE_13__["ChatMessageBar"],
+                            _chat_message_message_component__WEBPACK_IMPORTED_MODULE_14__["MessageComponent"],
+                            _login_screen_login_screen_component__WEBPACK_IMPORTED_MODULE_15__["LoginScreenComponent"],
+                            _game_field_scores_scores_component__WEBPACK_IMPORTED_MODULE_16__["ScoresComponent"],
+                            _game_field_stars_stars_component__WEBPACK_IMPORTED_MODULE_17__["StarsComponent"],
+                            _game_field_game_difficulty_game_difficulty_component__WEBPACK_IMPORTED_MODULE_18__["GameDifficultyComoponent"],
+                            _controls_control_leader_table_control_leader_table_component__WEBPACK_IMPORTED_MODULE_19__["LeaderTableComponent"]
                         ],
-                        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
-                        providers: [_shared_game_service__WEBPACK_IMPORTED_MODULE_11__["GameService"]],
-                        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
+                        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__["BrowserAnimationsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
+                        providers: [_shared_game_service__WEBPACK_IMPORTED_MODULE_12__["GameService"]],
+                        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
                     })
                 ], AppModule);
 
@@ -499,7 +502,7 @@
                         this.http = http;
                         this.http.get("http://localhost:8080/api/messages").subscribe(array => {
                             this.ChatService.mess = array;
-                            console.log(this.ChatService.mess);
+                            //console.log(this.ChatService.mess);
                         });
                     }
                 };
@@ -639,7 +642,6 @@
                             .get("http://localhost:8080/api/records")
                             .subscribe(arrayOfUsers => {
                                 this.arrayOfRecords = arrayOfUsers;
-                                this.arrayOfRecords = this.arrayOfRecords.filter(el => el.game === "paintTheField");
                                 this.show = !this.show;
                             });
                     }
@@ -1060,7 +1062,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2dhbWUtZmllbGQvc3RhcnMvc3RhcnMuY29tcG9uZW50LmNzcyJ9 */"
+                module.exports = ":host {\n    display: flex;\n    flex-direction: column;\n}\n\n.stars {\n    display: flex;\n    margin: 0;\n    justify-content: center;\n    padding: 10px 0;\n}\n\n.star {\n    display: block;\n    width: 41px;\n    height: 41px;\n    -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);\n            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);\n    background: rgb(185, 185, 185);\n    position: relative;\n}\n\n.star-bg {\n    content: '';\n    position: absolute;\n    left: 0;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    height: 40px;\n    background: rgb(255, 187, 0);\n    transition: all ease 0.2s;\n\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9zdGFycy9zdGFycy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksYUFBYTtJQUNiLHNCQUFzQjtBQUMxQjs7QUFFQTtJQUNJLGFBQWE7SUFDYixTQUFTO0lBQ1QsdUJBQXVCO0lBQ3ZCLGVBQWU7QUFDbkI7O0FBRUE7SUFDSSxjQUFjO0lBQ2QsV0FBVztJQUNYLFlBQVk7SUFDWixrSEFBMEc7WUFBMUcsMEdBQTBHO0lBQzFHLDhCQUE4QjtJQUM5QixrQkFBa0I7QUFDdEI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsa0JBQWtCO0lBQ2xCLE9BQU87SUFDUCxTQUFTO0lBQ1QsTUFBTTtJQUNOLFlBQVk7SUFDWixZQUFZO0lBQ1osNEJBQTRCO0lBQzVCLHlCQUF5Qjs7QUFFN0IiLCJmaWxlIjoic3JjL2FwcC9nYW1lLWZpZWxkL3N0YXJzL3N0YXJzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xufVxuXG4uc3RhcnMge1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgbWFyZ2luOiAwO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIHBhZGRpbmc6IDEwcHggMDtcbn1cblxuLnN0YXIge1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIHdpZHRoOiA0MXB4O1xuICAgIGhlaWdodDogNDFweDtcbiAgICBjbGlwLXBhdGg6IHBvbHlnb24oNTAlIDAlLCA2MSUgMzUlLCA5OCUgMzUlLCA2OCUgNTclLCA3OSUgOTElLCA1MCUgNzAlLCAyMSUgOTElLCAzMiUgNTclLCAyJSAzNSUsIDM5JSAzNSUpO1xuICAgIGJhY2tncm91bmQ6IHJnYigxODUsIDE4NSwgMTg1KTtcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG5cbi5zdGFyLWJnIHtcbiAgICBjb250ZW50OiAnJztcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgbGVmdDogMDtcbiAgICBib3R0b206IDA7XG4gICAgdG9wOiAwO1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBoZWlnaHQ6IDQwcHg7XG4gICAgYmFja2dyb3VuZDogcmdiKDI1NSwgMTg3LCAwKTtcbiAgICB0cmFuc2l0aW9uOiBhbGwgZWFzZSAwLjJzO1xuXG59Il19 */"
 
                 /***/
             }),
@@ -1084,15 +1086,77 @@
                 var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__( /*! tslib */ "./node_modules/tslib/tslib.es6.js");
                 /* harmony import */
                 var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__( /*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+                /* harmony import */
+                var _angular_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__( /*! @angular/animations */ "./node_modules/@angular/animations/fesm2015/animations.js");
+                /* harmony import */
+                var src_app_shared_game_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__( /*! src/app/shared/game.service */ "./src/app/shared/game.service.ts");
+
+
 
 
                 let StarsComponent = class StarsComponent {
-                    constructor() {}
+                    constructor(GameService) {
+                        this.GameService = GameService;
+                        this.maxSeconds = 30;
+                        this.seconds = 30;
+                    }
+                    ngOnInit() {
+                        switch (this.GameService.GAME_DIFFICULTY) {
+                            case 10: {
+                                this.maxSeconds = 40;
+                                break;
+                            }
+                            case 13: {
+                                this.maxSeconds = 80;
+                                break;
+                            }
+                            case 16: {
+                                this.maxSeconds = 130;
+                                break;
+                            }
+                        }
+                        this.seconds = this.maxSeconds;
+                        this.stars = Array(this.count)
+                            .fill(0)
+                            .map((x, i) => ({
+                                width: 100
+                            }));
+                        const timer = setInterval(() => {
+                            this.seconds--;
+                            let partSize = this.maxSeconds / this.count;
+                            const currentStarIndex = Math.ceil(this.seconds / partSize) - 1;
+                            this.stars[currentStarIndex].width =
+                                this.seconds % partSize ?
+                                ((this.seconds % partSize) / partSize) * 100 :
+                                100;
+                            this.GameService.scoreFactor = this.seconds / partSize;
+                            if (this.seconds === 0) {
+                                clearInterval(timer);
+                            }
+                            if (this.GameService.isEnd) {
+                                clearInterval(timer);
+                            }
+                        }, 1000);
+                    }
                 };
+                StarsComponent.ctorParameters = () => [{
+                    type: src_app_shared_game_service__WEBPACK_IMPORTED_MODULE_3__["GameService"]
+                }];
+                tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+                    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+                ], StarsComponent.prototype, "count", void 0);
                 StarsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                         selector: "app-stars",
                         template: __webpack_require__( /*! raw-loader!./stars.component.html */ "./node_modules/raw-loader/index.js!./src/app/game-field/stars/stars.component.html"),
+                        animations: [
+                            Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["trigger"])("endAnimation", [
+                                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["state"])("end", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["style"])({
+                                    transform: "rotate(360deg)"
+                                })),
+                                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["transition"])("* => end", Object(_angular_animations__WEBPACK_IMPORTED_MODULE_2__["animate"])("750ms"))
+                            ])
+                        ],
                         styles: [__webpack_require__( /*! ./stars.component.css */ "./src/app/game-field/stars/stars.component.css")]
                     })
                 ], StarsComponent);
@@ -1288,6 +1352,7 @@
                         this.ACTIVE_ARRAY_OF_COLORS = [];
                     }
                     startTheGame(number) {
+                        this.scoreFactor = 3;
                         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
                             "Content-Type": "application/json"
                         });
@@ -1318,6 +1383,10 @@
                                 return;
                             }
                         }
+                        if (this.scoreFactor < 1) {
+                            this.scoreFactor = 1;
+                        }
+                        this.scores = Math.ceil(this.scores * this.scoreFactor);
                         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]({
                             "Content-Type": "application/json"
                         });
@@ -1330,6 +1399,7 @@
                             })
                             .subscribe(_ => {
                                 this.isEnd = true;
+                                this.scoreFactor = 3;
                                 for (let cell of this.arrayOfCells) {
                                     cell.color = "gray";
                                 }
@@ -1361,15 +1431,12 @@
                         this._checkForTheEnd();
                     }
                     changeColor(color) {
-                        let chek;
                         for (let cell of this.arrayOfCells) {
                             if (cell.active) {
                                 cell.color = color;
                             }
                         }
-                        do {
-                            chek = this._checkField();
-                        } while (chek === 0);
+                        this._checkField();
                         this._checkForTheEnd();
                     }
                     _addScores(num) {
@@ -1390,7 +1457,6 @@
                         this.currentActive = count;
                     }
                     _checkField() {
-                        let count = 0;
                         for (let i = 0; i < this.GAME_DIFFICULTY * this.GAME_DIFFICULTY; i++) {
                             if (this.arrayOfCells[i].active) {
                                 if (this.arrayOfCells[i + 1]) {
@@ -1398,7 +1464,6 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i + 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i + 1].active = true;
-                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i - 1]) {
@@ -1406,7 +1471,6 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i - 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i - 1].active = true;
-                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i].active) {
@@ -1414,7 +1478,6 @@
                                         if (this.arrayOfCells[i + this.GAME_DIFFICULTY].color ===
                                             this.arrayOfCells[i].color) {
                                             this.arrayOfCells[i + this.GAME_DIFFICULTY].active = true;
-                                            count++;
                                         }
                                     }
                                 }
@@ -1422,13 +1485,11 @@
                                     if (this.arrayOfCells[i - this.GAME_DIFFICULTY].color ===
                                         this.arrayOfCells[i].color) {
                                         this.arrayOfCells[i - this.GAME_DIFFICULTY].active = true;
-                                        count++;
                                     }
                                 }
                             }
                         }
                         this._checkHowManyActive();
-                        return count;
                     }
                 }
                 GameService.ctorParameters = () => [{
