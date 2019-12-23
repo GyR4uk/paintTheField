@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <game-scores *ngIf="this.GameService.GAME_DIFFICULTY"></game-scores>
+    <app-stars [count]="3" *ngIf="this.GameService.GAME_DIFFICULTY"></app-stars>
     <div class="game">
         <div class="field" *ngIf="!this.GameService.GAME_DIFFICULTY">
             <game-diff></game-diff>

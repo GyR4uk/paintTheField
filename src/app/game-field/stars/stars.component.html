@@ -1,0 +1,11 @@
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <ul class="stars">
+        <li *ngFor="let star of stars" [@endAnimation]='star.width <= 10 ? "end" : ""' class="star">
+            <div class="star-bg" [style.width]="star.width +'%'">
+
+
+            </div>
+        </li>
+    </ul>
+    <game-scores></game-scores>
+</div>

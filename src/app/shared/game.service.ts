@@ -24,6 +24,7 @@ export class GameService {
   public isEnd: boolean = false;
 
   public scores: number = 0;
+  public scoreFactor: number = 3;
 
   private id;
   public ACTIVE_ARRAY_OF_COLORS: string[] = [];
@@ -31,6 +32,7 @@ export class GameService {
   public GAME_DIFFICULTY: 10 | 13 | 16;
 
   public startTheGame(number: 10 | 13 | 16): void {
+    this.scoreFactor = 3;
     let headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -69,7 +71,10 @@ export class GameService {
     this.http
       .patch(
         `http://localhost:8080/api/records/${this.id}`,
-        JSON.stringify({ id: this.id, score: this.scores }),
+        JSON.stringify({
+          id: this.id,
+          score: Math.round(this.scores * this.scoreFactor)
+        }),
         { headers }
       )
       .subscribe(_ => {
