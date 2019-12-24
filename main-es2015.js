@@ -425,7 +425,7 @@
                         this.text = "";
                     }
                     sendMessage(text) {
-                        if (text.length !== 0) {
+                        if (text.length !== 0 && text.replace(/\s/g, "").length !== 0) {
                             this.ChatService._createMessage(text);
                             this.text = "";
                         }
@@ -500,10 +500,14 @@
                     constructor(ChatService, http) {
                         this.ChatService = ChatService;
                         this.http = http;
-                        this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-                            this.ChatService.mess = array;
-                            //console.log(this.ChatService.mess);
-                        });
+                        this.http
+                            .get("http://localhost:8080/api/messages")
+                            .toPromise()
+                            .then(array => {
+                                this.ChatService.mess = array;
+                                //console.log(this.ChatService.mess);
+                            })
+                            .catch(err => console.warn("Невозможно получить сообщения. Авторизуйтесь или подключитесь к интренету!"));
                     }
                 };
                 ChatComponent.ctorParameters = () => [{
@@ -642,6 +646,7 @@
                             .get("http://localhost:8080/api/records")
                             .subscribe(arrayOfUsers => {
                                 this.arrayOfRecords = arrayOfUsers;
+                                this.arrayOfRecords = this.arrayOfRecords.filter(el => el.game === "Закрась поле");
                                 this.show = !this.show;
                             });
                     }
@@ -943,7 +948,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "* {\n    box-sizing: border-box;\n}\n\n.wrapper {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    min-width: 800px;\n    max-width: 2200px;\n}\n\n.game {\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n\n.field {\n    min-width: 550px;\n    min-height: 550px;\n    width: 40vw;\n    height: 40vw;\n}\n\n.easy {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(10, .1fr);\n}\n\n.medium {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(13, .1fr);\n}\n\n.hard {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(16, .1fr);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGFBQWE7SUFDYix1Q0FBdUM7QUFDM0M7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsYUFBYTtJQUNiLHVDQUF1QztBQUMzQzs7QUFFQTtJQUNJLGFBQWE7SUFDYixhQUFhO0lBQ2IsdUNBQXVDO0FBQzNDIiwiZmlsZSI6InNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG4ud3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIG1pbi13aWR0aDogODAwcHg7XG4gICAgbWF4LXdpZHRoOiAyMjAwcHg7XG59XG5cbi5nYW1lIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5maWVsZCB7XG4gICAgbWluLXdpZHRoOiA1NTBweDtcbiAgICBtaW4taGVpZ2h0OiA1NTBweDtcbiAgICB3aWR0aDogNDB2dztcbiAgICBoZWlnaHQ6IDQwdnc7XG59XG5cbi5lYXN5IHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTAsIC4xZnIpO1xufVxuXG4ubWVkaXVtIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTMsIC4xZnIpO1xufVxuXG4uaGFyZCB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICBncmlkLWdhcDogMnB4O1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDE2LCAuMWZyKTtcbn0iXX0= */"
+                module.exports = "* {\n    box-sizing: border-box;\n}\n\n.wrapper {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    min-width: 800px;\n    max-width: 2200px;\n}\n\n.game {\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n\n.field {\n    min-width: 550px;\n    min-height: 550px;\n    width: 37vw;\n    height: 37vw;\n}\n\n.easy {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(10, .1fr);\n}\n\n.medium {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(13, .1fr);\n}\n\n.hard {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(16, .1fr);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGFBQWE7SUFDYix1Q0FBdUM7QUFDM0M7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsYUFBYTtJQUNiLHVDQUF1QztBQUMzQzs7QUFFQTtJQUNJLGFBQWE7SUFDYixhQUFhO0lBQ2IsdUNBQXVDO0FBQzNDIiwiZmlsZSI6InNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG4ud3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIG1pbi13aWR0aDogODAwcHg7XG4gICAgbWF4LXdpZHRoOiAyMjAwcHg7XG59XG5cbi5nYW1lIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5maWVsZCB7XG4gICAgbWluLXdpZHRoOiA1NTBweDtcbiAgICBtaW4taGVpZ2h0OiA1NTBweDtcbiAgICB3aWR0aDogMzd2dztcbiAgICBoZWlnaHQ6IDM3dnc7XG59XG5cbi5lYXN5IHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTAsIC4xZnIpO1xufVxuXG4ubWVkaXVtIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTMsIC4xZnIpO1xufVxuXG4uaGFyZCB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICBncmlkLWdhcDogMnB4O1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDE2LCAuMWZyKTtcbn0iXX0= */"
 
                 /***/
             }),
@@ -1002,7 +1007,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = ".scope {\n    display: block;\n    justify-content: center;\n    align-items: center;\n    height: 5%;\n    width: 100%;\n    margin-bottom: 20%;\n}\n\n.scope h1 {\n    font-family: 'Lilita One', cursive;\n    font-size: 250%;\n    color: orange;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9zY29yZXMvc2NvcmVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0lBQ2QsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixVQUFVO0lBQ1YsV0FBVztJQUNYLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtDQUFrQztJQUNsQyxlQUFlO0lBQ2YsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2dhbWUtZmllbGQvc2NvcmVzL3Njb3Jlcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjb3BlIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGhlaWdodDogNSU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMjAlO1xufVxuXG4uc2NvcGUgaDEge1xuICAgIGZvbnQtZmFtaWx5OiAnTGlsaXRhIE9uZScsIGN1cnNpdmU7XG4gICAgZm9udC1zaXplOiAyNTAlO1xuICAgIGNvbG9yOiBvcmFuZ2U7XG59Il19 */"
+                module.exports = ".scope {\n    display: block;\n    justify-content: center;\n    align-items: center;\n    height: 5%;\n    width: 100%;\n    margin-bottom: 0.6em;\n}\n\n.scope h1 {\n    font-family: 'Lilita One', cursive;\n    font-size: 250%;\n    color: orange;\n    margin: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9zY29yZXMvc2NvcmVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0lBQ2QsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixVQUFVO0lBQ1YsV0FBVztJQUNYLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLGtDQUFrQztJQUNsQyxlQUFlO0lBQ2YsYUFBYTtJQUNiLFNBQVM7QUFDYiIsImZpbGUiOiJzcmMvYXBwL2dhbWUtZmllbGQvc2NvcmVzL3Njb3Jlcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjb3BlIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGhlaWdodDogNSU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMC42ZW07XG59XG5cbi5zY29wZSBoMSB7XG4gICAgZm9udC1mYW1pbHk6ICdMaWxpdGEgT25lJywgY3Vyc2l2ZTtcbiAgICBmb250LXNpemU6IDI1MCU7XG4gICAgY29sb3I6IG9yYW5nZTtcbiAgICBtYXJnaW46IDA7XG59Il19 */"
 
                 /***/
             }),
@@ -1278,24 +1283,34 @@
                             }), {
                                 headers
                             })
-                            .subscribe(data => {
+                            .toPromise()
+                            .then(data => {
                                 this.onGetMessages();
-                            });
+                            })
+                            .catch(err => alert("Невозможно отправить сообещние!"));
                     }
                     onGetMessages() {
                         if (!this.filtered) {
-                            this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-                                this.mess = array;
-                                this.mess = this.mess.filter(el => el.game === "paintTheField");
-                            });
+                            this.http
+                                .get("http://localhost:8080/api/messages")
+                                .toPromise()
+                                .then(array => {
+                                    this.mess = array;
+                                    this.mess = this.mess.filter(el => el.game === "Закрась поле");
+                                })
+                                .catch(err => console.warn("Невозможно получить список сообщений! Авторизируйтесь!"));
                         } else {
-                            this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-                                this.mess = array;
-                            });
+                            this.http
+                                .get("http://localhost:8080/api/messages")
+                                .toPromise()
+                                .then(array => {
+                                    this.mess = array;
+                                })
+                                .catch(err => console.warn("Невозможно получить список сообщений! Авторизируйтесь!"));
                         }
                     }
                     inrevalMessage() {
-                        setInterval(() => {
+                        let timer = setInterval(() => {
                             this.onGetMessages();
                         }, 1000);
                     }
@@ -1358,13 +1373,15 @@
                         });
                         this.http
                             .post("http://localhost:8080/api/records", JSON.stringify({
-                                game: "paintTheField"
+                                game: "Закрась поле"
                             }), {
                                 headers
                             })
-                            .subscribe(response => {
+                            .toPromise()
+                            .then(response => {
                                 this.id = response;
-                            });
+                            })
+                            .catch(err => console.warn("ID игре не присовоено! Результат не будет сохранен!"));
                         this.GAME_DIFFICULTY = number;
                         this._editActiveColorsArray();
                         this._initArray();
@@ -1397,7 +1414,14 @@
                             }), {
                                 headers
                             })
-                            .subscribe(_ => {
+                            .subscribe(response => {
+                                this.isEnd = true;
+                                this.scoreFactor = 3;
+                                for (let cell of this.arrayOfCells) {
+                                    cell.color = "gray";
+                                }
+                            }, request => {
+                                alert("УПС! Сервер не хочет принять ваш результат.");
                                 this.isEnd = true;
                                 this.scoreFactor = 3;
                                 for (let cell of this.arrayOfCells) {
@@ -1431,12 +1455,15 @@
                         this._checkForTheEnd();
                     }
                     changeColor(color) {
+                        let chek;
                         for (let cell of this.arrayOfCells) {
                             if (cell.active) {
                                 cell.color = color;
                             }
                         }
-                        this._checkField();
+                        do {
+                            chek = this._checkField();
+                        } while (chek === 0);
                         this._checkForTheEnd();
                     }
                     _addScores(num) {
@@ -1457,6 +1484,7 @@
                         this.currentActive = count;
                     }
                     _checkField() {
+                        let count = 0;
                         for (let i = 0; i < this.GAME_DIFFICULTY * this.GAME_DIFFICULTY; i++) {
                             if (this.arrayOfCells[i].active) {
                                 if (this.arrayOfCells[i + 1]) {
@@ -1464,6 +1492,7 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i + 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i + 1].active = true;
+                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i - 1]) {
@@ -1471,6 +1500,7 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i - 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i - 1].active = true;
+                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i].active) {
@@ -1478,6 +1508,7 @@
                                         if (this.arrayOfCells[i + this.GAME_DIFFICULTY].color ===
                                             this.arrayOfCells[i].color) {
                                             this.arrayOfCells[i + this.GAME_DIFFICULTY].active = true;
+                                            count++;
                                         }
                                     }
                                 }
@@ -1485,11 +1516,13 @@
                                     if (this.arrayOfCells[i - this.GAME_DIFFICULTY].color ===
                                         this.arrayOfCells[i].color) {
                                         this.arrayOfCells[i - this.GAME_DIFFICULTY].active = true;
+                                        count++;
                                     }
                                 }
                             }
                         }
                         this._checkHowManyActive();
+                        return count;
                     }
                 }
                 GameService.ctorParameters = () => [{
@@ -1537,9 +1570,16 @@
                             }), {
                                 headers
                             })
-                            .subscribe(response => {
+                            .toPromise()
+                            .then(response => {
                                 this.isLogged = true;
                                 this.ChatService.inrevalMessage();
+                            }, request => {
+                                if (!name) {
+                                    alert("Введите имя!");
+                                } else {
+                                    alert("Ошибка входа. Нет соединения с интернетом!");
+                                }
                             });
                     }
                     _logOut() {
@@ -1636,7 +1676,7 @@
             /***/
             (function (module, exports, __webpack_require__) {
 
-                module.exports = __webpack_require__( /*! /Users/roman/Desktop/tenzor-project/paintTheField/src/main.ts */ "./src/main.ts");
+                module.exports = __webpack_require__( /*! /Users/roman/Desktop/tenzor-project/Закрась поле/src/main.ts */ "./src/main.ts");
 
 
                 /***/

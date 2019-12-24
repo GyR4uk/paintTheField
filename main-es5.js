@@ -431,7 +431,7 @@
                         this.text = "";
                     }
                     ChatMessageBar.prototype.sendMessage = function (text) {
-                        if (text.length !== 0) {
+                        if (text.length !== 0 && text.replace(/\s/g, "").length !== 0) {
                             this.ChatService._createMessage(text);
                             this.text = "";
                         }
@@ -510,10 +510,16 @@
                         var _this = this;
                         this.ChatService = ChatService;
                         this.http = http;
-                        this.http.get("http://localhost:8080/api/messages").subscribe(function (array) {
-                            _this.ChatService.mess = array;
-                            //console.log(this.ChatService.mess);
-                        });
+                        this.http
+                            .get("http://localhost:8080/api/messages")
+                            .toPromise()
+                            .then(function (array) {
+                                _this.ChatService.mess = array;
+                                //console.log(this.ChatService.mess);
+                            })
+                            .catch(function (err) {
+                                return console.warn("Невозможно получить сообщения. Авторизуйтесь или подключитесь к интренету!");
+                            });
                     }
                     ChatComponent.ctorParameters = function () {
                         return [{
@@ -659,6 +665,9 @@
                             .get("http://localhost:8080/api/records")
                             .subscribe(function (arrayOfUsers) {
                                 _this.arrayOfRecords = arrayOfUsers;
+                                _this.arrayOfRecords = _this.arrayOfRecords.filter(function (el) {
+                                    return el.game === "paintTheField";
+                                });
                                 _this.show = !_this.show;
                             });
                     };
@@ -975,7 +984,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = "* {\n    box-sizing: border-box;\n}\n\n.wrapper {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    min-width: 800px;\n    max-width: 2200px;\n}\n\n.game {\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n\n.field {\n    min-width: 550px;\n    min-height: 550px;\n    width: 40vw;\n    height: 40vw;\n}\n\n.easy {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(10, .1fr);\n}\n\n.medium {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(13, .1fr);\n}\n\n.hard {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(16, .1fr);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGFBQWE7SUFDYix1Q0FBdUM7QUFDM0M7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsYUFBYTtJQUNiLHVDQUF1QztBQUMzQzs7QUFFQTtJQUNJLGFBQWE7SUFDYixhQUFhO0lBQ2IsdUNBQXVDO0FBQzNDIiwiZmlsZSI6InNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG4ud3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIG1pbi13aWR0aDogODAwcHg7XG4gICAgbWF4LXdpZHRoOiAyMjAwcHg7XG59XG5cbi5nYW1lIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5maWVsZCB7XG4gICAgbWluLXdpZHRoOiA1NTBweDtcbiAgICBtaW4taGVpZ2h0OiA1NTBweDtcbiAgICB3aWR0aDogNDB2dztcbiAgICBoZWlnaHQ6IDQwdnc7XG59XG5cbi5lYXN5IHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTAsIC4xZnIpO1xufVxuXG4ubWVkaXVtIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTMsIC4xZnIpO1xufVxuXG4uaGFyZCB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICBncmlkLWdhcDogMnB4O1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDE2LCAuMWZyKTtcbn0iXX0= */"
+                module.exports = "* {\n    box-sizing: border-box;\n}\n\n.wrapper {\n    width: 100%;\n    height: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    min-width: 800px;\n    max-width: 2200px;\n}\n\n.game {\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}\n\n.field {\n    min-width: 550px;\n    min-height: 550px;\n    width: 37vw;\n    height: 37vw;\n}\n\n.easy {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(10, .1fr);\n}\n\n.medium {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(13, .1fr);\n}\n\n.hard {\n    display: grid;\n    grid-gap: 2px;\n    grid-template-columns: repeat(16, .1fr);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxzQkFBc0I7QUFDMUI7O0FBRUE7SUFDSSxXQUFXO0lBQ1gsWUFBWTtJQUNaLGFBQWE7SUFDYixzQkFBc0I7SUFDdEIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixnQkFBZ0I7SUFDaEIsaUJBQWlCO0FBQ3JCOztBQUVBO0lBQ0ksc0JBQXNCO0lBQ3RCLHVCQUF1QjtJQUN2QixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsaUJBQWlCO0lBQ2pCLFdBQVc7SUFDWCxZQUFZO0FBQ2hCOztBQUVBO0lBQ0ksYUFBYTtJQUNiLGFBQWE7SUFDYix1Q0FBdUM7QUFDM0M7O0FBRUE7SUFDSSxhQUFhO0lBQ2IsYUFBYTtJQUNiLHVDQUF1QztBQUMzQzs7QUFFQTtJQUNJLGFBQWE7SUFDYixhQUFhO0lBQ2IsdUNBQXVDO0FBQzNDIiwiZmlsZSI6InNyYy9hcHAvZ2FtZS1maWVsZC9nYW1lLWZpZWxkLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIqIHtcbiAgICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xufVxuXG4ud3JhcHBlciB7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIG1pbi13aWR0aDogODAwcHg7XG4gICAgbWF4LXdpZHRoOiAyMjAwcHg7XG59XG5cbi5nYW1lIHtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbi5maWVsZCB7XG4gICAgbWluLXdpZHRoOiA1NTBweDtcbiAgICBtaW4taGVpZ2h0OiA1NTBweDtcbiAgICB3aWR0aDogMzd2dztcbiAgICBoZWlnaHQ6IDM3dnc7XG59XG5cbi5lYXN5IHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTAsIC4xZnIpO1xufVxuXG4ubWVkaXVtIHtcbiAgICBkaXNwbGF5OiBncmlkO1xuICAgIGdyaWQtZ2FwOiAycHg7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMTMsIC4xZnIpO1xufVxuXG4uaGFyZCB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICBncmlkLWdhcDogMnB4O1xuICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDE2LCAuMWZyKTtcbn0iXX0= */"
 
                 /***/
             }),
@@ -1037,7 +1046,7 @@
             /***/
             (function (module, exports) {
 
-                module.exports = ".scope {\n    display: block;\n    justify-content: center;\n    align-items: center;\n    height: 5%;\n    width: 100%;\n    margin-bottom: 20%;\n}\n\n.scope h1 {\n    font-family: 'Lilita One', cursive;\n    font-size: 250%;\n    color: orange;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9zY29yZXMvc2NvcmVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0lBQ2QsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixVQUFVO0lBQ1YsV0FBVztJQUNYLGtCQUFrQjtBQUN0Qjs7QUFFQTtJQUNJLGtDQUFrQztJQUNsQyxlQUFlO0lBQ2YsYUFBYTtBQUNqQiIsImZpbGUiOiJzcmMvYXBwL2dhbWUtZmllbGQvc2NvcmVzL3Njb3Jlcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjb3BlIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGhlaWdodDogNSU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMjAlO1xufVxuXG4uc2NvcGUgaDEge1xuICAgIGZvbnQtZmFtaWx5OiAnTGlsaXRhIE9uZScsIGN1cnNpdmU7XG4gICAgZm9udC1zaXplOiAyNTAlO1xuICAgIGNvbG9yOiBvcmFuZ2U7XG59Il19 */"
+                module.exports = ".scope {\n    display: block;\n    justify-content: center;\n    align-items: center;\n    height: 5%;\n    width: 100%;\n    margin-bottom: 0.6em;\n}\n\n.scope h1 {\n    font-family: 'Lilita One', cursive;\n    font-size: 250%;\n    color: orange;\n    margin: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZ2FtZS1maWVsZC9zY29yZXMvc2NvcmVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0lBQ2QsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixVQUFVO0lBQ1YsV0FBVztJQUNYLG9CQUFvQjtBQUN4Qjs7QUFFQTtJQUNJLGtDQUFrQztJQUNsQyxlQUFlO0lBQ2YsYUFBYTtJQUNiLFNBQVM7QUFDYiIsImZpbGUiOiJzcmMvYXBwL2dhbWUtZmllbGQvc2NvcmVzL3Njb3Jlcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnNjb3BlIHtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGhlaWdodDogNSU7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgbWFyZ2luLWJvdHRvbTogMC42ZW07XG59XG5cbi5zY29wZSBoMSB7XG4gICAgZm9udC1mYW1pbHk6ICdMaWxpdGEgT25lJywgY3Vyc2l2ZTtcbiAgICBmb250LXNpemU6IDI1MCU7XG4gICAgY29sb3I6IG9yYW5nZTtcbiAgICBtYXJnaW46IDA7XG59Il19 */"
 
                 /***/
             }),
@@ -1303,7 +1312,7 @@
                     function ChatService(http) {
                         this.http = http;
                         this.arrayOfMesages = [];
-                        this.filtered = true;
+                        this.filtered = false;
                     }
                     ChatService.prototype.getCurrentTime = function (number) {
                         var date = new Date(number);
@@ -1326,28 +1335,44 @@
                             }), {
                                 headers: headers
                             })
-                            .subscribe(function (data) {
+                            .toPromise()
+                            .then(function (data) {
                                 _this.onGetMessages();
+                            })
+                            .catch(function (err) {
+                                return alert("Невозможно отправить сообещние!");
                             });
                     };
                     ChatService.prototype.onGetMessages = function () {
                         var _this = this;
                         if (!this.filtered) {
-                            this.http.get("http://localhost:8080/api/messages").subscribe(function (array) {
-                                _this.mess = array;
-                                _this.mess = _this.mess.filter(function (el) {
-                                    return el.game === "paintTheField";
+                            this.http
+                                .get("http://localhost:8080/api/messages")
+                                .toPromise()
+                                .then(function (array) {
+                                    _this.mess = array;
+                                    _this.mess = _this.mess.filter(function (el) {
+                                        return el.game === "paintTheField";
+                                    });
+                                })
+                                .catch(function (err) {
+                                    return console.warn("Невозможно получить список сообщений! Авторизируйтесь!");
                                 });
-                            });
                         } else {
-                            this.http.get("http://localhost:8080/api/messages").subscribe(function (array) {
-                                _this.mess = array;
-                            });
+                            this.http
+                                .get("http://localhost:8080/api/messages")
+                                .toPromise()
+                                .then(function (array) {
+                                    _this.mess = array;
+                                })
+                                .catch(function (err) {
+                                    return console.warn("Невозможно получить список сообщений! Авторизируйтесь!");
+                                });
                         }
                     };
                     ChatService.prototype.inrevalMessage = function () {
                         var _this = this;
-                        setInterval(function () {
+                        var timer = setInterval(function () {
                             _this.onGetMessages();
                         }, 1000);
                     };
@@ -1422,8 +1447,12 @@
                             }), {
                                 headers: headers
                             })
-                            .subscribe(function (response) {
+                            .toPromise()
+                            .then(function (response) {
                                 _this.id = response;
+                            })
+                            .catch(function (err) {
+                                return console.warn("ID игре не присовоено! Результат не будет сохранен!");
                             });
                         this.GAME_DIFFICULTY = number;
                         this._editActiveColorsArray();
@@ -1458,7 +1487,7 @@
                             }), {
                                 headers: headers
                             })
-                            .subscribe(function (_) {
+                            .subscribe(function (response) {
                                 var e_1, _a;
                                 _this.isEnd = true;
                                 _this.scoreFactor = 3;
@@ -1476,6 +1505,27 @@
                                         if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
                                     } finally {
                                         if (e_1) throw e_1.error;
+                                    }
+                                }
+                            }, function (request) {
+                                var e_2, _a;
+                                alert("УПС! Сервер не хочет принять ваш результат.");
+                                _this.isEnd = true;
+                                _this.scoreFactor = 3;
+                                try {
+                                    for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](_this.arrayOfCells), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                        var cell = _c.value;
+                                        cell.color = "gray";
+                                    }
+                                } catch (e_2_1) {
+                                    e_2 = {
+                                        error: e_2_1
+                                    };
+                                } finally {
+                                    try {
+                                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                                    } finally {
+                                        if (e_2) throw e_2.error;
                                     }
                                 }
                             });
@@ -1506,43 +1556,13 @@
                         this._checkForTheEnd();
                     };
                     GameService.prototype.changeColor = function (color) {
-                        var e_2, _a;
+                        var e_3, _a;
+                        var chek;
                         try {
                             for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](this.arrayOfCells), _c = _b.next(); !_c.done; _c = _b.next()) {
                                 var cell = _c.value;
                                 if (cell.active) {
                                     cell.color = color;
-                                }
-                            }
-                        } catch (e_2_1) {
-                            e_2 = {
-                                error: e_2_1
-                            };
-                        } finally {
-                            try {
-                                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                            } finally {
-                                if (e_2) throw e_2.error;
-                            }
-                        }
-                        this._checkField();
-                        this._checkForTheEnd();
-                    };
-                    GameService.prototype._addScores = function (num) {
-                        var addNum = 100;
-                        for (var i = 0; i < num; i++) {
-                            this.scores += addNum;
-                            addNum += 100;
-                        }
-                    };
-                    GameService.prototype._checkHowManyActive = function () {
-                        var e_3, _a;
-                        var count = 0;
-                        try {
-                            for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](this.arrayOfCells), _c = _b.next(); !_c.done; _c = _b.next()) {
-                                var cell = _c.value;
-                                if (cell.active) {
-                                    count++;
                                 }
                             }
                         } catch (e_3_1) {
@@ -1556,10 +1576,44 @@
                                 if (e_3) throw e_3.error;
                             }
                         }
+                        do {
+                            chek = this._checkField();
+                        } while (chek === 0);
+                        this._checkForTheEnd();
+                    };
+                    GameService.prototype._addScores = function (num) {
+                        var addNum = 100;
+                        for (var i = 0; i < num; i++) {
+                            this.scores += addNum;
+                            addNum += 100;
+                        }
+                    };
+                    GameService.prototype._checkHowManyActive = function () {
+                        var e_4, _a;
+                        var count = 0;
+                        try {
+                            for (var _b = tslib__WEBPACK_IMPORTED_MODULE_0__["__values"](this.arrayOfCells), _c = _b.next(); !_c.done; _c = _b.next()) {
+                                var cell = _c.value;
+                                if (cell.active) {
+                                    count++;
+                                }
+                            }
+                        } catch (e_4_1) {
+                            e_4 = {
+                                error: e_4_1
+                            };
+                        } finally {
+                            try {
+                                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                            } finally {
+                                if (e_4) throw e_4.error;
+                            }
+                        }
                         this._addScores(count - this.currentActive);
                         this.currentActive = count;
                     };
                     GameService.prototype._checkField = function () {
+                        var count = 0;
                         for (var i = 0; i < this.GAME_DIFFICULTY * this.GAME_DIFFICULTY; i++) {
                             if (this.arrayOfCells[i].active) {
                                 if (this.arrayOfCells[i + 1]) {
@@ -1567,6 +1621,7 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i + 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i + 1].active = true;
+                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i - 1]) {
@@ -1574,6 +1629,7 @@
                                         Math.floor(i / this.GAME_DIFFICULTY) ===
                                         Math.floor((i - 1) / this.GAME_DIFFICULTY)) {
                                         this.arrayOfCells[i - 1].active = true;
+                                        count++;
                                     }
                                 }
                                 if (this.arrayOfCells[i].active) {
@@ -1581,6 +1637,7 @@
                                         if (this.arrayOfCells[i + this.GAME_DIFFICULTY].color ===
                                             this.arrayOfCells[i].color) {
                                             this.arrayOfCells[i + this.GAME_DIFFICULTY].active = true;
+                                            count++;
                                         }
                                     }
                                 }
@@ -1588,11 +1645,13 @@
                                     if (this.arrayOfCells[i - this.GAME_DIFFICULTY].color ===
                                         this.arrayOfCells[i].color) {
                                         this.arrayOfCells[i - this.GAME_DIFFICULTY].active = true;
+                                        count++;
                                     }
                                 }
                             }
                         }
                         this._checkHowManyActive();
+                        return count;
                     };
                     GameService.ctorParameters = function () {
                         return [{
@@ -1645,9 +1704,16 @@
                             }), {
                                 headers: headers
                             })
-                            .subscribe(function (response) {
+                            .toPromise()
+                            .then(function (response) {
                                 _this.isLogged = true;
                                 _this.ChatService.inrevalMessage();
+                            }, function (request) {
+                                if (!name) {
+                                    alert("Введите имя!");
+                                } else {
+                                    alert("Ошибка входа. Нет соединения с интернетом!");
+                                }
                             });
                     };
                     LoginService.prototype._logOut = function () {
