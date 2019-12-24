@@ -1,9 +1,10 @@
 import { ChatService } from "./chat.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+
 export class LoginService {
   constructor(private ChatService: ChatService, private http: HttpClient) {}
-  isLogged: boolean = true;
+  isLogged: boolean = false;
 
   public _login(name: string): void {
     let headers = new HttpHeaders({
@@ -16,6 +17,10 @@ export class LoginService {
       .subscribe(response => {
         this.isLogged = true;
         this.ChatService.inrevalMessage();
+      },
+      request =>{
+        if (!name){alert("Некорректный логин");}
+        else{alert("Данный пользователь уже в сети");}
       });
   }
 

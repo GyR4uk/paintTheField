@@ -22,9 +22,9 @@ export class GameService {
   private currentActive: number = 0;
 
   public isEnd: boolean = false;
+  public scoreFactor: number;
 
   public scores: number = 0;
-  public scoreFactor: number = 3;
 
   private id;
   public ACTIVE_ARRAY_OF_COLORS: string[] = [];
@@ -42,9 +42,13 @@ export class GameService {
         JSON.stringify({ game: "paintTheField" }),
         { headers }
       )
-      .subscribe(response => {
+      .toPromise()
+      .then(response => {
         this.id = response;
-      });
+      })
+      .catch(err =>
+        console.warn("ID игре не присовоено! Результат не будет сохранен!")
+      );
     this.GAME_DIFFICULTY = number;
     this._editActiveColorsArray();
     this._initArray();
@@ -65,6 +69,11 @@ export class GameService {
         return;
       }
     }
+    if (this.scoreFactor < 1) {
+      this.scoreFactor = 1;
+    }
+
+    this.scores = Math.ceil(this.scores * this.scoreFactor);
     let headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -77,12 +86,23 @@ export class GameService {
         }),
         { headers }
       )
-      .subscribe(_ => {
-        this.isEnd = true;
-        for (let cell of this.arrayOfCells) {
-          cell.color = "gray";
+      .subscribe(
+        response => {
+          this.isEnd = true;
+          this.scoreFactor = 3;
+          for (let cell of this.arrayOfCells) {
+            cell.color = "gray";
+          }
+        },
+        request => {
+          alert("УПС! Сервер не хочет принять ваш результат.");
+          this.isEnd = true;
+          this.scoreFactor = 3;
+          for (let cell of this.arrayOfCells) {
+            cell.color = "gray";
+          }
         }
-      });
+      );
 
     return;
   }

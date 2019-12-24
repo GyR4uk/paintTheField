@@ -36,15 +36,15 @@ export class StarsComponent implements OnInit {
   ngOnInit(): void {
     switch (this.GameService.GAME_DIFFICULTY) {
       case 10: {
-        this.maxSeconds = 60;
+        this.maxSeconds = 40;
         break;
       }
       case 13: {
-        this.maxSeconds = 120;
+        this.maxSeconds = 80;
         break;
       }
       case 16: {
-        this.maxSeconds = 180;
+        this.maxSeconds = 130;
         break;
       }
     }
@@ -70,7 +70,7 @@ export class StarsComponent implements OnInit {
         clearInterval(timer);
       }
 
-      if (this.GameService.isEnd === true) {
+      if (this.GameService.isEnd) {
         clearInterval(timer);
       }
     }, 1000);
