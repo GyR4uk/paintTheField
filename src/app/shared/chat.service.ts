@@ -1,4 +1,8 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "@angular/common/http";
 
 export class ChatService {
   constructor(private http: HttpClient) {}
@@ -31,21 +35,35 @@ export class ChatService {
       .post("http://localhost:8080/api/messages", JSON.stringify({ text }), {
         headers
       })
-      .subscribe(data => {
+      .toPromise()
+      .then(data => {
         this.onGetMessages();
-      });
+      })
+      .catch(err => alert("Невозможно отправить сообещние!"));
   }
 
   onGetMessages() {
     if (!this.filtered) {
-      this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-        this.mess = array;
-        this.mess = this.mess.filter(el => el.game === "paintTheField");
-      });
+      this.http
+        .get("http://localhost:8080/api/messages")
+        .toPromise()
+        .then(array => {
+          this.mess = array;
+          this.mess = this.mess.filter(el => el.game === "paintTheField");
+        })
+        .catch(err =>
+          console.warn("Невозможно получить список сообщений! Авторизируйтесь!")
+        );
     } else {
-      this.http.get("http://localhost:8080/api/messages").subscribe(array => {
-        this.mess = array;
-      });
+      this.http
+        .get("http://localhost:8080/api/messages")
+        .toPromise()
+        .then(array => {
+          this.mess = array;
+        })
+        .catch(err =>
+          console.warn("Невозможно получить список сообщений! Авторизируйтесь!")
+        );
     }
   }
 

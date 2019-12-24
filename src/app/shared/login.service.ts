@@ -1,7 +1,6 @@
 import { ChatService } from "./chat.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-
 export class LoginService {
   constructor(private ChatService: ChatService, private http: HttpClient) {}
   isLogged: boolean = false;
@@ -14,14 +13,20 @@ export class LoginService {
       .post("http://localhost:8080/api/users", JSON.stringify({ name }), {
         headers
       })
-      .subscribe(response => {
-        this.isLogged = true;
-        this.ChatService.inrevalMessage();
-      },
-      request =>{
-        if (!name){alert("Некорректный логин");}
-        else{alert("Данный пользователь уже в сети");}
-      });
+      .toPromise()
+      .then(
+        response => {
+          this.isLogged = true;
+          this.ChatService.inrevalMessage();
+        },
+        request => {
+          if (!name) {
+            alert("Введите имя!");
+          } else {
+            alert("Ошибка входа. Нет соединения с интернетом!");
+          }
+        }
+      );
   }
 
   public _logOut(): void {

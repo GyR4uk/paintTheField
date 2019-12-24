@@ -11,7 +11,7 @@ export class ChatMessageBar {
 
   text: string = "";
   sendMessage(text: string): void {
-    if (text.length !== 0) {
+    if (text.length !== 0 && text.replace(/\s/g, "").length !== 0) {
       this.ChatService._createMessage(text);
       this.text = "";
     }
