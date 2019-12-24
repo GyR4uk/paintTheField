@@ -81,13 +81,22 @@ export class GameService {
         }),
         { headers }
       )
-      .subscribe(_ => {
-        this.isEnd = true;
-        this.scoreFactor = 3;
-        for (let cell of this.arrayOfCells) {
-          cell.color = "gray";
+      .subscribe(response => {
+          this.isEnd = true;
+          this.scoreFactor = 3;
+          for (let cell of this.arrayOfCells) {
+            cell.color = "gray";
+          }
+        },
+        request =>{
+          alert("УПС! Сервер не хочет принять ваш результат.")
+          this.isEnd = true;
+          this.scoreFactor = 3;
+          for (let cell of this.arrayOfCells) {
+            cell.color = "gray";
+          }
         }
-      });
+      );
 
     return;
   }

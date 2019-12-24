@@ -19,7 +19,8 @@ export class LoginService {
         this.ChatService.inrevalMessage();
       },
       request =>{
-        alert("Данный пользователь уже в сети");
+        if (!name){alert("Некорректный логин");}
+        else{alert("Данный пользователь уже в сети");}
       });
   }
 
