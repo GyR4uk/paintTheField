@@ -4,9 +4,9 @@ import {
   state,
   style,
   animate,
-  transition,
+  transition
   // ...
-} from '@angular/animations';
+} from "@angular/animations";
 import { GameService } from "src/app/shared/game.service";
 
 @Component({
@@ -14,11 +14,15 @@ import { GameService } from "src/app/shared/game.service";
   templateUrl: "./stars.component.html",
   styleUrls: ["./stars.component.css"],
   animations: [
-    trigger('endAnimation', [
-      state('end', style({
-        transform: 'rotate(360deg)'
-      })),
-      transition('* => end', animate('750ms'))])
+    trigger("endAnimation", [
+      state(
+        "end",
+        style({
+          transform: "rotate(360deg)"
+        })
+      ),
+      transition("* => end", animate("750ms"))
+    ])
   ]
 })
 export class StarsComponent implements OnInit {
@@ -32,15 +36,15 @@ export class StarsComponent implements OnInit {
   ngOnInit(): void {
     switch (this.GameService.GAME_DIFFICULTY) {
       case 10: {
-        this.maxSeconds = 180;
+        this.maxSeconds = 40;
         break;
       }
       case 13: {
-        this.maxSeconds = 120;
+        this.maxSeconds = 80;
         break;
       }
       case 16: {
-        this.maxSeconds = 60;
+        this.maxSeconds = 130;
         break;
       }
     }

@@ -1,7 +1,7 @@
 <div [ngClass]="{ wrap: data.isMine, 'from-wrap': !data.isMine }">
     <div [ngClass]="{ message: data.isMine, 'from-message': !data.isMine }">
         <div [ngClass]="{ name: data.isMine, 'from-name': !data.isMine }">
-            {{ data.user }}
+            {{ data.user }} | ( {{ (data.game === '' ? "resting" : data.game) }} )
         </div>
         <div class="text">{{ data.text }}</div>
         <div [ngClass]="{ time: data.isMine, 'from-time': !data.isMine }">
